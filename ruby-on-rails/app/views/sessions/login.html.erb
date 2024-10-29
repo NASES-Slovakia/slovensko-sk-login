@@ -1,0 +1,13 @@
+<% if session[:saml_identifier]&.present? %>
+  <div>
+    <p>SAML idenfitikátor prihláseného používateľa: <span><%= session[:saml_identifier] %></span></p>
+  </div>
+
+  <div>
+    <%= button_to "Odhlásiť sa", upvs_logout_path, method: :get %>
+  </div>
+<% else %>
+  <div>
+    <%= button_to "Prihlásiť cez slovensko.sk", "/auth/saml", method: :post, data: { turbo: false } %>
+  </div>
+<% end %>
