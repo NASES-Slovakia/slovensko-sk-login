@@ -15,15 +15,15 @@ module Authentication
     end
   end
 
-  def create_session(saml_identifier: nil)
+  def create_session(user_info: nil)
     session[:login_expires_at] = SESSION_TIMEOUT.from_now
-    session[:saml_identifier] = saml_identifier
+    session[:user_info] = user_info
     redirect_to root_path
   end
 
   def clean_session
     session[:login_expires_at] = nil
-    session[:saml_identifier] = nil
+    session[:user_info] = nil
   end
 
   def valid_session?(session)

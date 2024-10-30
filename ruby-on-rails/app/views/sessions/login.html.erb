@@ -1,9 +1,11 @@
-<% if session[:saml_identifier]&.present? %>
+<% if session[:user_info]&.present? %>
   <div>
-    <p>SAML idenfitikátor prihláseného používateľa: <span><%= session[:saml_identifier] %></span></p>
-  </div>
+    <p>Meno prihláseného používateľa: <span><%= session[:user_info]['actor']['name'] %></span></p>
+    <p>Idenfitikátor prihláseného používateľa: <span><%= session[:user_info]['actor']['sub'] %></span></p>
+    <p>Meno prihláseného subjektu: <span><%= session[:user_info]['subject']['name'] %></span></p>
+    <p>Idenfitikátor prihláseného subjektu: <span><%= session[:user_info]['subject']['sub'] %></span></p>
+    <p>SAML idenfitikátor prihláseného subjektu: <span><%= session[:user_info]['subject']['saml_identifier'] %></span></p>
 
-  <div>
     <%= button_to "Odhlásiť sa", upvs_logout_path, method: :get %>
   </div>
 <% else %>

@@ -8,9 +8,9 @@ class UpvsController < ActionController::API
 
   def callback
     response = request.env['omniauth.auth']['extra']['response_object']
-    saml_identifier = response.attributes["Subject.UPVSIdentityID"]
+    info_from_assertion = Upvs.parse_info_from_upvs_response(response)
 
-    create_session(saml_identifier: saml_identifier)
+    create_session(user_info: info_from_assertion)
   end
 
   def logout
