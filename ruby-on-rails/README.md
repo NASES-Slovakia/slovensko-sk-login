@@ -1,24 +1,28 @@
 # Ruby on Rails slovensko.sk login
 
+## Použité knižnice
+- [omniauth-saml](https://github.com/omniauth/omniauth-saml)
+- [ruby-saml](https://github.com/SAML-Toolkits/ruby-saml)
+
+## Konfigurácia
 Pred prvým spustením je potrebné pripraviť:
 * [.env](.env) s doplnenými hodnotami [premenných prostredia](#premenné-prostredia) podľa potreby,
 * všetky [bezpečnostné súbory](#bezpečnostné-súbory), ktoré komponent požaduje podľa upraveného `.env` súboru.
 
-## Konfigurácia
-Zoznam premenných prostredia a bezpečnostných súborov potrebných pre spustenie.
-
-#### Premenné prostredia:
+### Premenné prostredia:
 Premenná | Popis                                                                                                  | Hodnota
 --- |--------------------------------------------------------------------------------------------------------| ---
-`UPVS_ENV` | Prostredie ÚPVS<sup>1</sup>                                                                            | `fix` (predvolená), `dev` alebo `prod`
+`UPVS_ENV` | Prostredie ÚPVS<sup>1</sup>                                                                            | `fix` (predvolená) alebo `prod`
 `UPVS_SSO_SUBJECT` | Subjekt ukazujúci na Service Provider metadáta pre autentifikáciu cez ÚPVS SSO                         
-`UPVS_SSO_SP_CERTIFICATE` | Hodnota Service Provider certifikátu pre podpisovanie, šifrovanie pri autentifikácii cez ÚPVS SSO<sup>2</sup>      
-`UPVS_SSO_SP_PRIVATE_KEY` | Hodnota Service Provider privátneho kľúča pre podpisovanie, šifrovanie pri autentifikácii cez ÚPVS SSO<sup>2</sup>
+`UPVS_SSO_SP_SIGNING_CERTIFICATE` | Hodnota Service Provider certifikátu pre podpisovanie pri autentifikácii cez ÚPVS SSO<sup>2</sup>      
+`UPVS_SSO_SP_SIGNING_PRIVATE_KEY` | Hodnota Service Provider privátneho kľúča pre podpisovanie pri autentifikácii cez ÚPVS SSO<sup>2</sup>
+`UPVS_SSO_SP_ENCRYPTION_CERTIFICATE` | Hodnota Service Provider certifikátu pre šifrovanie pri autentifikácii cez ÚPVS SSO<sup>2</sup>      
+`UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY` | Hodnota Service Provider privátneho kľúča pre šifrovanie pri autentifikácii cez ÚPVS SSO<sup>2</sup>
 
-<sup>1</sup> Integračný manuál ÚPVS IAM  
+<sup>1</sup> Integračný manuál ÚPVS IAM dostupný na [Partner framewrok portáli](https://kp.gov.sk/pf)  
 <sup>2</sup> Certifikát musí byť zaregistrovaný v prostredí ÚPVS
 
-#### Bezpečnostné súbory:
+### Bezpečnostné súbory:
 Súbor | Popis
 --- | --- 
 `security/upvs_{UPVS_ENV}.metadata.xml` | Metadáta IdP<sup>1</sup>
@@ -26,8 +30,18 @@ Súbor | Popis
 
 <sup>1</sup> Metadáta IdP / SP musia byť zaregistrované v prostredí ÚPVS
 
-## Testovacie identity
-* TODO: toto by sme asi aj do hlavneho adresara mohli dat (nezavisle od platformy), aby si to bolo mozne rychlo skusit s nejakym zdielanym loginom - mohol by NASES dat nejake identity pre tento ucel, nedavajme nase
+## Flow jednotlivých scenárov
+### Prihlásenie používateľa
+1. Začiatok procesu prihlásenia na `/upvs/login` endpointe, spracovanie v [UpvsController](app/controllers/upvs_controller.rb:23-24).
+2. Redirect so SAML Response z ÚPVS portálu na `/auth/saml/callback` endpoint, spracovanie v [UpvsController](app/controllers/upvs_controller.rb:9-12).
+3. Prihlásený používateľ.
 
-## Na čo si dať pozor
-* TODO: toto by sme asi aj do hlavneho adresara mohli dat (nezavisle od platformy) a spisat tam, ze sa treba venovat obom scenarom pre odhlasenie a taketo specialitky
+### Odhlásenie používateľa iniciované na strane SP
+1. Začiatok procesu odhlásenia na `/upvs/logout` endpointe, spracovanie v [UpvsController](app/controllers/upvs_controller.rb:5).
+2. Redirect so SAML Response z ÚPVS portálu na `/upvs/logout` endpoint, spracovanie v [UpvsController](app/controllers/upvs_controller.rb:20-21).
+3. Odhlásený používateľ.
+
+### Odhlásenie používateľa iniciované na strane IdP
+1. Redirect so SAML Requestom z ÚPVS portálu na `/upvs/logout` endpoint, spracovanie v [UpvsController](app/controllers/upvs_controller.rb:17-19).
+2. Redirect so SAML Response na ÚPVS portál.
+3. Odhlásený používateľ.

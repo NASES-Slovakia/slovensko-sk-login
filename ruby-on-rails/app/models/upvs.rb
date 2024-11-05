@@ -25,6 +25,7 @@ module Upvs
         "name": response.attributes['Actor.FormattedName'].to_s,
         "sub": response.attributes['ActorID'].to_s
       },
+      "saml_attributes": response.attributes.to_h,
     }
   end
 
