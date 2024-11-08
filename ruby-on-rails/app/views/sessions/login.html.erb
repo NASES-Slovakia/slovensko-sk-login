@@ -1,0 +1,22 @@
+<% if session[:user_info]&.present? %>
+  <div>
+    <p><b>Meno prihláseného subjektu:</b> <span><%= session[:user_info]['subject']['name'] %></span></p>
+    <p><b>Idenfitikátor prihláseného subjektu:</b> <span><%= session[:user_info]['subject']['sub'] %></span></p>
+    <p><b>SAML idenfitikátor prihláseného subjektu:</b> <span><%= session[:user_info]['subject']['saml_identifier'] %></span></p>
+    <p><b>Meno prihláseného používateľa:</b> <span><%= session[:user_info]['actor']['name'] %></span></p>
+    <p><b>Idenfitikátor prihláseného používateľa:</b> <span><%= session[:user_info]['actor']['sub'] %></span></p>
+
+    <p><b>Všetky SAML atribúty:</b></p>
+    <pre>
+      <% session[:user_info]['saml_attributes'].to_h.each do |k,v| %>
+        <%= k %>: <%= v %>
+      <% end %>
+    </pre>
+
+    <%= button_to "Odhlásiť sa", upvs_logout_path, method: :get %>
+  </div>
+<% else %>
+  <div>
+    <%= button_to "Prihlásiť cez slovensko.sk", "/auth/saml", method: :post, data: { turbo: false } %>
+  </div>
+<% end %>
