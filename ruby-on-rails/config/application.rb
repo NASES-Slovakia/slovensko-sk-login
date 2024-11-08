@@ -6,7 +6,7 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-if ['development', 'test'].include? ENV['RAILS_ENV']
+if [ "development", "test" ].include? ENV["RAILS_ENV"]
   Dotenv::Rails.load
 end
 
@@ -17,6 +17,6 @@ module SlovenskoSkLogin
 
     config.middleware.use Rack::Attack
 
-    config.time_zone = 'Europe/Bratislava'
+    config.time_zone = "Europe/Bratislava"
   end
 end
