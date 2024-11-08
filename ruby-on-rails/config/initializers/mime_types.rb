@@ -3,5 +3,5 @@
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
 
-Mime::Type.register 'application/health+json', :health
-Mime::Type.register 'application/samlassertion+xml', :saml
+Mime::Type.register "application/health+json", :health
+Mime::Type.register "application/samlassertion+xml", :saml

@@ -2,11 +2,11 @@ class UpvsController < ActionController::API
   SESSION_TIMEOUT = 20.minutes
 
   def login
-    redirect_to '/auth/saml'
+    redirect_to "/auth/saml"
   end
 
   def callback
-    response = request.env['omniauth.auth']['extra']['response_object']
+    response = request.env["omniauth.auth"]["extra"]["response_object"]
     info_from_assertion = Upvs.parse_info_from_upvs_response(response)
 
     create_session(user_info: info_from_assertion)
@@ -21,7 +21,7 @@ class UpvsController < ActionController::API
       redirect_to "/auth/saml/slo?#{slo_response_params.to_query}"
     else
       clean_session
-      redirect_to '/auth/saml/spslo'
+      redirect_to "/auth/saml/spslo"
     end
   end
 
@@ -51,7 +51,7 @@ class UpvsController < ActionController::API
   end
 
   def auth_hash
-    request.env['omniauth.auth']
+    request.env["omniauth.auth"]
   end
 
   def login_path

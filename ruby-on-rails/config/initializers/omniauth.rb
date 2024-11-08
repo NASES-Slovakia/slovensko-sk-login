@@ -1,10 +1,10 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
   configure do |config|
     # Raise errors in every environment instead of redirecting to the default error page.
-    config.failure_raise_out_environments = ['development', 'production', 'staging', 'test']
+    config.failure_raise_out_environments = [ "development", "production", "staging", "test" ]
 
     # Respond to saml, saml/callback, saml/metadata, saml/slo, and saml/spslo under path prefix.
-    config.path_prefix = '/auth'
+    config.path_prefix = "/auth"
 
     config.on_failure do |env|
       SessionsController.action(:destroy).call(env)

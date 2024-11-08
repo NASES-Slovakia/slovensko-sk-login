@@ -7,14 +7,14 @@ Rails.application.routes.draw do
     get :logout
   end
 
-  scope 'auth/saml', as: :upvs, controller: :upvs do
+  scope "auth/saml", as: :upvs, controller: :upvs do
     get :login
     get :logout
 
     post :callback
   end
 
-  get :auth, path: 'prihlasenie', to: 'upvs#login'
+  get :auth, path: "prihlasenie", to: "upvs#login"
 
-  root 'sessions#login'
+  root "sessions#login"
 end
