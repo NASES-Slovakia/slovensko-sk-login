@@ -4,10 +4,8 @@
 - [omniauth-saml](https://github.com/omniauth/omniauth-saml)
 - [ruby-saml](https://github.com/SAML-Toolkits/ruby-saml)
 
-## Konfigurácia
-Pred prvým spustením je potrebné pripraviť:
-* [.env](.env) s doplnenými hodnotami [premenných prostredia](#premenné-prostredia) podľa potreby,
-* všetky [bezpečnostné súbory](#bezpečnostné-súbory), ktoré komponent požaduje podľa upraveného `.env` súboru.
+## Spustenie
+Aplikácia je nakonfigurovaná, stačí spustiť `bin/setup` pre prvotné nastavanie alebo `bin/dev` pre ďalšie spustenia. Aplikácia beží na https://localhost.dev:3001 so self-signed SSL certifikátom. 
 
 ### Premenné prostredia:
 Premenná | Popis                                                                                                  | Hodnota
