@@ -1,6 +1,6 @@
 # Prihlasovanie cez slovensko.sk - Single Sign-On - WebSSO
 
-NASES (prevádzkovateľ slovensko.sk) poskytuje integrátorom využívať garantované overenie identity pomocou prihlasovania cez slovensko.sk.
+NASES (prevádzkovateľ slovensko.sk) poskytuje integrátorom možnosť využívať garantované overenie identity pomocou prihlasovania cez slovensko.sk.
 
 Toto úložisko obsahuje ukážkové implementácie prihlasovania pomocou slovensko.sk (cez eID, Slovensko v mobile a iné) pre rôzne programovacie jazyky a frameworky. Ukážky by mali fungovať "out-of-the-box", s minimálnou konfiguráciou alebo inštaláciou.
 
