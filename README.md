@@ -17,7 +17,7 @@ TODO - format ziadosti
   Na prihlasovanie v testovacom prostredí sa **NEDÁ** za bežných okolností použiť občiansky preukaz ani aplikácia Slovensko v mobile, používajú sa testovacie identity, ktoré sa prihlasujú menom a heslom. Správajú sa však rovnako. Môžete o ne požiadať NASES alebo využiť zdielanú testovaciu identitu, ktorá má meno `E0005182537` a heslo `Poprad@Ta3`
 
 
-3. **Zaregistrované service provider (SP) metadáta <sup>1</sup>**  
+3. **Zaregistrované service provider (SP) metadáta**  
   Ukážkové implementácie používajú už zaregistrované metadáta pre host `localhost.dev` a bežia na https://localhost.dev:3001/  
   Ak chcete využívať inú adresu, je potrebné si zaregistrovať vlastné metadáta. Návod k registrácii a požiadavkam na SP metadáta: https://www.slovensko.sk/_img/CMS4/Navody/navod_poskytovatelia_sluzieb.pdf    
 
