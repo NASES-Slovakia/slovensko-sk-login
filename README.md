@@ -9,12 +9,12 @@ Toto úložisko obsahuje ukážkové implementácie prihlasovania pomocou sloven
 ## Predpoklady
 1. **Prístup do testovacieho prostredia slovensko.sk**  
   Na to, aby ste mohli začať testovať prihlasovanie cez testovacie identity slovensko.sk budete potrebovať prístup na testovacie prostredie slovensko.sk (https://portal.upvsfixnew.gov.sk).  
-  Prístup na toto prostredie získate až po registrácii do partner framework portálu a žiadosti zaslanej do NASES.
+  Prístup na toto prostredie získate až po registrácii do partner framework portálu a žiadosti zaslanej do NASES. Informácie ohľadom žiadania o vytvorenie infraštruktúrneho prepojenia sú uvedené v dokumente s názvom Všeobecný popis integrácie OVM, PO v sekcii Žiadosť o vytvorenie infraštruktúrneho prepojenia (FIX). Dokument sa nachádza na [partner framework portáli](https://www.nases.gov.sk/sluzby/sluzby-pre-po-a-ovm/integracie) v časti Integrácia na ÚPVS, Ako začať.
 
-TODO - format ziadosti
 
-2. **Testovacie identity zriadené**
-  Na prihlasovanie v testovacom prostredí sa **NEDÁ** za bežných okolností použiť občiansky preukaz ani aplikácia Slovensko v mobile, používajú sa testovacie identity, ktoré sa prihlasujú menom a heslom. Správajú sa však rovnako. Môžete o ne požiadať NASES alebo využiť zdielanú testovaciu identitu, ktorá má meno `E0005182537` a heslo `Poprad@Ta3`
+2. **Testovacie identity zriadené**  
+  Na prihlasovanie v testovacom prostredí sa **NEDÁ** za bežných okolností použiť občiansky preukaz ani aplikácia Slovensko v mobile, používajú sa testovacie identity, ktoré sa prihlasujú menom a heslom. Správajú sa však rovnako. Môžete o ne požiadať NASES alebo využiť zdielanú testovaciu identitu, ktorá má meno `E0005182537` a heslo `Poprad@Ta3`.  
+   Informácie ohľadom žiadania o testovacie identity sú uvedené v dokumente s názvom Všeobecný popis integrácie OVM, PO v sekcii Žiadosť o zriadenie testovacích identít. Dokument sa nachádza na [partner framework portáli](https://www.nases.gov.sk/sluzby/sluzby-pre-po-a-ovm/integracie) v časti Integrácia na ÚPVS, Ako začať.
 
 
 3. **Zaregistrované service provider (SP) metadáta**  
