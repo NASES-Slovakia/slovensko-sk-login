@@ -15,7 +15,6 @@ class UpvsController < ActionController::API
   def logout
     if params[:SAMLRequest]
       clean_session
-
       redirect_to "/auth/saml/slo?#{slo_request_params.to_query}"
     elsif params[:SAMLResponse]
       redirect_to "/auth/saml/slo?#{slo_response_params.to_query}"
