@@ -11,7 +11,7 @@ Aplikácia je nakonfigurovaná, stačí spustiť `bin/setup` pre prvotné nastav
 Premenná | Popis                                                                                                  | Hodnota
 --- |--------------------------------------------------------------------------------------------------------| ---
 `UPVS_ENV` | Prostredie ÚPVS<sup>1</sup>                                                                            | `fix` (predvolená) alebo `prod`
-`UPVS_SSO_SUBJECT` | Subjekt ukazujúci na Service Provider metadáta pre autentifikáciu cez ÚPVS SSO                         
+`SP_METADATA_PATH` | Relatívna cesta ukazujúca na Service Provider metadáta pre autentifikáciu cez ÚPVS SSO                         
 `UPVS_SSO_SP_SIGNING_PRIVATE_KEY` | Hodnota Service Provider privátneho kľúča pre podpisovanie pri autentifikácii cez ÚPVS SSO<sup>2</sup>
 `UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY` | Hodnota Service Provider privátneho kľúča pre šifrovanie pri autentifikácii cez ÚPVS SSO<sup>2</sup>
 
@@ -21,8 +21,8 @@ Premenná | Popis                                                               
 ### Bezpečnostné súbory:
 Súbor | Popis
 --- | --- 
-`security/upvs_{UPVS_ENV}.metadata.xml` | Metadáta IdP<sup>1</sup>
-`security/{SSO_SP_SUBJECT}_{UPVS_ENV}.metadata.xml` | Metadáta SP<sup>1</sup>
+`../security/upvs_{UPVS_ENV}.metadata.xml` | Metadáta IdP<sup>1</sup>
+`SP_METADATA_PATH`, napr. `../security/localhost_dev_two_keys/localhost_dev_fix.metadata.xml` | Metadáta SP<sup>1</sup>
 
 <sup>1</sup> Metadáta IdP / SP musia byť zaregistrované v prostredí ÚPVS
 
