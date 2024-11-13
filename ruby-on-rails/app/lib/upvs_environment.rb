@@ -26,13 +26,13 @@ module UpvsEnvironment
       sp_cert_multi: {
         signing: [
           {
-            certificate: sp_metadata['SPSSODescriptor']['KeyDescriptor'].select { |key_descriptor|  key_descriptor['use'] == 'signing' }.first['KeyInfo']['X509Data']['X509Certificate'],
+            certificate: sp_metadata['SPSSODescriptor']['KeyDescriptor'].find { _1['use'] == 'signing' }['KeyInfo']['X509Data']['X509Certificate'],
             private_key: sso_signing_private_key
           }
         ],
         encryption: [
           {
-            certificate: sp_metadata['SPSSODescriptor']['KeyDescriptor'].select { |key_descriptor|  key_descriptor['use'] == 'encryption' }.first['KeyInfo']['X509Data']['X509Certificate'],
+            certificate: sp_metadata['SPSSODescriptor']['KeyDescriptor'].find { _1['use'] == 'encryption' }['KeyInfo']['X509Data']['X509Certificate'],
             private_key: sso_encryption_private_key
           }
         ]
