@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://localhost.dev2">
+  <SPSSODescriptor AuthnRequestsSigned="true" WantAssertionsSigned="true"
+                   protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <KeyDescriptor use="signing">
+      <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <X509Data>
+          <X509Certificate>MIIC0jCCAbqgAwIBAgIJAIr0WzkIL6fiMA0GCSqGSIb3DQEBDQUAMBcxFTATBgNV
+            BAMTDGljby04MzEzMDA2NjAeFw0yNDExMTIwODI1MTJaFw0yNjExMTIwODI1MTJa
+            MBcxFTATBgNVBAMTDGljby04MzEzMDA2NjCCASIwDQYJKoZIhvcNAQEBBQADggEP
+            ADCCAQoCggEBAKuc5o1O7CjDF0LME7tbuVkfjYeuVvAD5ZE0r/vROVkV1hkwQqwT
+            b7/QCNRtt8x/jb04kf+tNk33cfDZ6Pz/MnsV3iuL/ZA4YF2ecisYPnpBY6UXzeBu
+            WhsT+i0JBqrD5MQAkM/2eoztb5VM0DKLMPqs7iEmkSWsz2t7bg9j83Lt5kkaffJ/
+            qSi2gMb0CJbW2t14QDKJQ7D0nxL3DTIttgg0IoFsX72/EZFLhoSNwbkX1wfGu+ru
+            Ni2GCvly9PCiYSMgMogs/lSGZVGlBZe2MJc2CR/5fvOL29ChVL8KU6LYeR8yenME
+            LoK9SoyJK7qp0bGyqDxMA3ytkBWLIEuRNG0CAwEAAaMhMB8wHQYDVR0OBBYEFN4D
+            Cv8pla+6Qxji32jieReyWHeUMA0GCSqGSIb3DQEBDQUAA4IBAQBaxqfBP1pBaYQ5
+            SkpGcNmMuRXtg457xhBn3f3rtQymz0IX/AUlaXQPUEdzT31p3gyE8MpuYB2l524d
+            PbUnqjsfG5EPNKOpXWhVZPH6SzA0g66+L9nLbczZ3qBZ87HbofBTgmtu+U/e1kIo
+            y/KK8FyJvc72Knb1CbI9DjSi4fpeK2WakI+i7INiF7sFXXpQ/M4JNhYRCZBQoVAR
+            P6oS3+Fv7tob0jGP7x8MrD4Q4cy5xTLCPWel+dYKLffzeRgAiYHerQmO3nPiVByX
+            838NQd4Wx9Zsp+WUAjXz//m1AGJHxlqEZuloPNPLhMLzAl5pNGe+Vo4K07RygyFs
+            aiYfnE0j
+          </X509Certificate>
+        </X509Data>
+      </KeyInfo>
+    </KeyDescriptor>
+    <KeyDescriptor use="encryption">
+      <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <X509Data>
+          <X509Certificate>MIIC0jCCAbqgAwIBAgIJAIr0WzkIL6fiMA0GCSqGSIb3DQEBDQUAMBcxFTATBgNV
+            BAMTDGljby04MzEzMDA2NjAeFw0yNDExMTIwODI1MTJaFw0yNjExMTIwODI1MTJa
+            MBcxFTATBgNVBAMTDGljby04MzEzMDA2NjCCASIwDQYJKoZIhvcNAQEBBQADggEP
+            ADCCAQoCggEBAKuc5o1O7CjDF0LME7tbuVkfjYeuVvAD5ZE0r/vROVkV1hkwQqwT
+            b7/QCNRtt8x/jb04kf+tNk33cfDZ6Pz/MnsV3iuL/ZA4YF2ecisYPnpBY6UXzeBu
+            WhsT+i0JBqrD5MQAkM/2eoztb5VM0DKLMPqs7iEmkSWsz2t7bg9j83Lt5kkaffJ/
+            qSi2gMb0CJbW2t14QDKJQ7D0nxL3DTIttgg0IoFsX72/EZFLhoSNwbkX1wfGu+ru
+            Ni2GCvly9PCiYSMgMogs/lSGZVGlBZe2MJc2CR/5fvOL29ChVL8KU6LYeR8yenME
+            LoK9SoyJK7qp0bGyqDxMA3ytkBWLIEuRNG0CAwEAAaMhMB8wHQYDVR0OBBYEFN4D
+            Cv8pla+6Qxji32jieReyWHeUMA0GCSqGSIb3DQEBDQUAA4IBAQBaxqfBP1pBaYQ5
+            SkpGcNmMuRXtg457xhBn3f3rtQymz0IX/AUlaXQPUEdzT31p3gyE8MpuYB2l524d
+            PbUnqjsfG5EPNKOpXWhVZPH6SzA0g66+L9nLbczZ3qBZ87HbofBTgmtu+U/e1kIo
+            y/KK8FyJvc72Knb1CbI9DjSi4fpeK2WakI+i7INiF7sFXXpQ/M4JNhYRCZBQoVAR
+            P6oS3+Fv7tob0jGP7x8MrD4Q4cy5xTLCPWel+dYKLffzeRgAiYHerQmO3nPiVByX
+            838NQd4Wx9Zsp+WUAjXz//m1AGJHxlqEZuloPNPLhMLzAl5pNGe+Vo4K07RygyFs
+            aiYfnE0j
+          </X509Certificate>
+        </X509Data>
+      </KeyInfo>
+    </KeyDescriptor>
+    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                         Location="https://localhost.dev:3001/upvs/logout"
+                         ResponseLocation="https://localhost.dev:3001/auth/saml/logout"/>
+    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                         Location="https://localhost.dev:3001/upvs/logout"
+                         ResponseLocation="https://localhost.dev:3001/auth/saml/logout"/>
+    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                              Location="https://localhost.dev:3001/auth/saml/callback" index="0" isDefault="true"/>
+    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact"
+                              Location="https://localhost.dev:3001/auth/saml/callback" index="1"/>
+    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                              Location="https://localhost.dev:3001/auth/saml/callback" index="2"/>
+  </SPSSODescriptor>
+</EntityDescriptor>
