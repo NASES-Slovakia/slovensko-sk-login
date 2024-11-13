@@ -26,13 +26,13 @@ module UpvsEnvironment
       sp_cert_multi: {
         signing: [
           {
-            certificate: sso_signing_certificate,
+            certificate: sp_metadata['SPSSODescriptor']['KeyDescriptor'].select { |key_descriptor|  key_descriptor['use'] == 'signing' }.first['KeyInfo']['X509Data']['X509Certificate'],
             private_key: sso_signing_private_key
           }
         ],
         encryption: [
           {
-            certificate: sso_encryption_certificate,
+            certificate: sp_metadata['SPSSODescriptor']['KeyDescriptor'].select { |key_descriptor|  key_descriptor['use'] == 'encryption' }.first['KeyInfo']['X509Data']['X509Certificate'],
             private_key: sso_encryption_private_key
           }
         ]
@@ -65,16 +65,8 @@ module UpvsEnvironment
     ENV.fetch("UPVS_SSO_SP_SIGNING_PRIVATE_KEY")
   end
 
-  def sso_signing_certificate
-    ENV.fetch("UPVS_SSO_SP_SIGNING_CERTIFICATE")
-  end
-
   def sso_encryption_private_key
     ENV.fetch("UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY")
-  end
-
-  def sso_encryption_certificate
-    ENV.fetch("UPVS_SSO_SP_ENCRYPTION_CERTIFICATE")
   end
 
   def sso_metadata_file(subject)

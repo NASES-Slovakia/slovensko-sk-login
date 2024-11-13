@@ -12,9 +12,7 @@ Premenná | Popis                                                               
 --- |--------------------------------------------------------------------------------------------------------| ---
 `UPVS_ENV` | Prostredie ÚPVS<sup>1</sup>                                                                            | `fix` (predvolená) alebo `prod`
 `UPVS_SSO_SUBJECT` | Subjekt ukazujúci na Service Provider metadáta pre autentifikáciu cez ÚPVS SSO                         
-`UPVS_SSO_SP_SIGNING_CERTIFICATE` | Hodnota Service Provider certifikátu pre podpisovanie pri autentifikácii cez ÚPVS SSO<sup>2</sup>      
 `UPVS_SSO_SP_SIGNING_PRIVATE_KEY` | Hodnota Service Provider privátneho kľúča pre podpisovanie pri autentifikácii cez ÚPVS SSO<sup>2</sup>
-`UPVS_SSO_SP_ENCRYPTION_CERTIFICATE` | Hodnota Service Provider certifikátu pre šifrovanie pri autentifikácii cez ÚPVS SSO<sup>2</sup>      
 `UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY` | Hodnota Service Provider privátneho kľúča pre šifrovanie pri autentifikácii cez ÚPVS SSO<sup>2</sup>
 
 <sup>1</sup> Integračný manuál ÚPVS IAM dostupný na [Partner framewrok portáli](https://kp.gov.sk/pf)  
