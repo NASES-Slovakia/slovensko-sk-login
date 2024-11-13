@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://localhost.dev">
-  <SPSSODescriptor AuthnRequestsSigned="true" WantAssertionsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+  <SPSSODescriptor AuthnRequestsSigned="true" WantAssertionsSigned="true"
+                   protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
     <KeyDescriptor use="signing">
       <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
         <X509Data>
@@ -19,7 +20,8 @@
             QShTLjlDbz9zOd4pvXVF3bMQOqfDNyOwBytAn1z64gYz0ocKXuLv5B0BPihewn0n
             Tg4dCrXHXuee/f7o7bflcAP6TljL9L29KQHMqrcYtuwCLSRkmyWUU2XWhZ4zlkOV
             74nkS8Z519bnTli0ql9+QtZx7ZCbQbp1PJFYmc7mQ8LijaIGjIJ5OOVXrRPyBkw6
-            UtRyntlM</X509Certificate>
+            UtRyntlM
+          </X509Certificate>
         </X509Data>
       </KeyInfo>
     </KeyDescriptor>
@@ -41,14 +43,22 @@
             sr9r6DLgFog6EXxd5ZcSnUlyLBhiTzNiIF5CUWa55C/Q6Au2neq/d3LqUtq9/snd
             M6y/FKj3cNYNLLH0qImXpOL3HoFYLtibfTbdhLNaewDqgPDLeTx5qg/5qriUuNob
             CPNT9urmISr0HHJKiiZ4/YiQAAcbprNdnw87/r5knN+jNRfEU+tg0tzcxQgCH16t
-            QXTFgfM=</X509Certificate>
+            QXTFgfM=
+          </X509Certificate>
         </X509Data>
       </KeyInfo>
     </KeyDescriptor>
-    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://localhost.dev:3001/upvs/logout" ResponseLocation="https://localhost.dev:3001/auth/saml/logout" />
-    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://localhost.dev:3001/upvs/logout" ResponseLocation="https://localhost.dev:3001/auth/saml/logout" />
-    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://localhost.dev:3001/auth/saml/callback" index="0" isDefault="true" />
-    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://localhost.dev:3001/auth/saml/callback" index="1" />
-    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://localhost.dev:3001/auth/saml/callback" index="2" />
+    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                         Location="https://localhost.dev:3001/upvs/logout"
+                         ResponseLocation="https://localhost.dev:3001/auth/saml/logout"/>
+    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                         Location="https://localhost.dev:3001/upvs/logout"
+                         ResponseLocation="https://localhost.dev:3001/auth/saml/logout"/>
+    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                              Location="https://localhost.dev:3001/auth/saml/callback" index="0" isDefault="true"/>
+    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact"
+                              Location="https://localhost.dev:3001/auth/saml/callback" index="1"/>
+    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                              Location="https://localhost.dev:3001/auth/saml/callback" index="2"/>
   </SPSSODescriptor>
 </EntityDescriptor>
