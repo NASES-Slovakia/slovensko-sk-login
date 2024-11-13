@@ -8,7 +8,7 @@
 
   <Service name="Catalina">
     <Connector protocol="org.apache.coyote.http11.Http11NioProtocol"
-               port="8443" maxThreads="200"
+               port="3001" maxThreads="200"
                maxParameterCount="1000"
                scheme="https" secure="true" SSLEnabled="true"
                keystoreFile="conf/localhost-rsa.jks" keystorePass="changeme"
