@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://govbox-pro2.staging.slovesnko.digital">
+<EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://localhost.dev">
   <SPSSODescriptor AuthnRequestsSigned="true" WantAssertionsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
     <KeyDescriptor use="signing">
       <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
         <X509Data>
-          <X509Certificate>MIIC0TCCAbmgAwIBAgIIDHe4jd+FcygwDQYJKoZIhvcNAQENBQAwFzEVMBMGA1UE
-AxMMaWNvLTgzMTMwMDYzMB4XDTI0MTAzMDA5MzcxMloXDTI2MTAzMDA5MzcxMlow
-FzEVMBMGA1UEAxMMaWNvLTgzMTMwMDYzMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
-MIIBCgKCAQEA2aBC81cTqf2XkzW8+icLVAVbSpOH5IEt50e3hIWZh/r9iEa4M9dR
-9yY4a0RHNggVXnvuOqC+j+2y72jQR8pmHNR+xmLKEAK0jiZzJ/ZTnwjmH4M3290P
-qICLIg6Rcy+kn4ONZxTNcxglNoUw6LCkiUaal69/yZ2sl2aZivtzES6x0za39RBc
-C/2ltgj0yz7VnVVAscYPLawLsytDLST0hIsYCwP+o0Tv71BRieRBhTXC2OFxytDo
-Y4i6YeytQHL+/C9842fB1NgJB0JPPNByT7ia/g2H66n4OSfahCJ88r2yJCD6XMo8
-nbnS+iEerWPeklh8n989DeDjn9WXe2MyoQIDAQABoyEwHzAdBgNVHQ4EFgQUjAwl
-TydpKPA2JUpHX5IiMijhQW0wDQYJKoZIhvcNAQENBQADggEBAEbvU4beJPUAg7QS
-Anet8YcDNcrTWAFTmkjzKC2LZNoqdIT6IU2CkHXpJ6Wn/NkdWTCyOM+0Lp5AYhUG
-asAMXybzQMMlZPpvu9xkPoa6CuLzVLMygYRpI/6vQEcxT6er3fPo7S+s6OO8kMJN
-BYwAk+4OTW34T4BM0hjJRTouCTJ6OTbLKF8YGlNEOFFL/6IWN67+EMWFj7htWJ3U
-PNhOo9h/ZvPDlPpDHXV+crhGn2Dg7x5U2FOKoYxJUp8+KhkLnCTn236JnDPYtjRN
-q0y9dA8HjCDyw61BD5mIqI/GjZTEwobamz8Vq7dNFsORKehlhGsPcNxlmOKtOzQ1
-0h5vK70=</X509Certificate>
+          <X509Certificate>MIIC0jCCAbqgAwIBAgIJAIlN/adzBOJgMA0GCSqGSIb3DQEBDQUAMBcxFTATBgNV
+            BAMTDGljby04MzEzMDA2NjAeFw0yNDExMTEwODI0NDdaFw0yNjExMTEwODI0NDda
+            MBcxFTATBgNVBAMTDGljby04MzEzMDA2NjCCASIwDQYJKoZIhvcNAQEBBQADggEP
+            ADCCAQoCggEBALKSMsykQ4j0bPDPq7VQ79EFUwp3XbXzcyI7uJSjAT76F3ibc9hq
+            z3HvJmL7RfM90/OU/Qus6qim5JfX6SlCWiUCQde55SZRcgq+LlOdcAfC/TLdGOYJ
+            AQ8yo/MpGgWPhaMurhqk8Akg5Pk/xJhueTvNEk4ylsBjrnVfui3NJ1Tfomy0nukX
+            jC+9m3TDQxovVtE2aI8kX0Ky+yvsN6aFowW4wLpQZNywoLRNUNO5ztaUBHZ1UKwU
+            gdjGXeNgdAAulAabL50XRENS8XcLtdkAnQ8Mtjy7oDHj8KifijjkyUdyZgCROx+h
+            Hgme8AoBzy/25ErEKjBxg6UxBI/9f6GxT0sCAwEAAaMhMB8wHQYDVR0OBBYEFI68
+            hMZ3MVHbzumRRnZ1S0dBXWPdMA0GCSqGSIb3DQEBDQUAA4IBAQCPAVCY/ei6UOA7
+            pDfdWysUQaQRGkwnCp35jcYfmakSgcX4RTPI/ys82kt8ax3WIZccO0N+CxppDiyE
+            x+HRptVnkQYZQraVaPX0G9HC+H0BBUV/l0KyCKh1XspljmDFgTVOC4XOJcDtZE5x
+            QShTLjlDbz9zOd4pvXVF3bMQOqfDNyOwBytAn1z64gYz0ocKXuLv5B0BPihewn0n
+            Tg4dCrXHXuee/f7o7bflcAP6TljL9L29KQHMqrcYtuwCLSRkmyWUU2XWhZ4zlkOV
+            74nkS8Z519bnTli0ql9+QtZx7ZCbQbp1PJFYmc7mQ8LijaIGjIJ5OOVXrRPyBkw6
+            UtRyntlM</X509Certificate>
         </X509Data>
       </KeyInfo>
     </KeyDescriptor>
     <KeyDescriptor use="encryption">
       <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
         <X509Data>
-          <X509Certificate>MIIC0jCCAbqgAwIBAgIJAJncuN83t/0YMA0GCSqGSIb3DQEBDQUAMBcxFTATBgNV
-BAMTDGljby04MzEzMDA2MzAeFw0yNDEwMzAwOTM3MTVaFw0yNjEwMzAwOTM3MTVa
-MBcxFTATBgNVBAMTDGljby04MzEzMDA2MzCCASIwDQYJKoZIhvcNAQEBBQADggEP
-ADCCAQoCggEBAJlCvlmd+dqXDh2ZlUiJZUYiIXUJYPAfMHYt6iRO8eLK/0uEjfp6
-77xrP61v3iriBsMPZfw/pRFLvZE8JUKAcMYmtdXieQ5229BwkzbzVndN/tXSZakH
-RD5V/yAA8qpUcak6AR9sYD8GousrKuIrkl05OIDfGOBw4UABkINdRkTKHtWDnR6z
-T5LOnoj7HO/iYEae7MEjogu/4Vdj6O/bHdgZ2cugOngZKPfXHJIuiq3YxIrgHsqu
-25/5ovjrCL4/hsttVoIJ7Qknii7w/bV4iq+z7rXIoH7Mu5gllZSmvYn4r20cvu2y
-rXo9KuQQFiIaOjKWeeN80fpGGM0IaOAYhq8CAwEAAaMhMB8wHQYDVR0OBBYEFNS/
-XwcKffmTTPLEJbbb4Yxbff4IMA0GCSqGSIb3DQEBDQUAA4IBAQB3J5SqNinTE4uZ
-6WQ9T7cbbfdz+vRWrjqI2k+wDedScq+BgnPwthtgIdhV+qamxnz669fcDE+ozQ3N
-menn7zbKa/m7dWIzvrWToaV3Acb6hYedeR/yadQzrmgsZ38t3Bh6LSb/Uh9vIy6P
-ygHDwYuRoKfeiTuumsPSeTc35s8bw90t1MSNS6u5baJaRqZ4aRmmXRFJKbqJz/8P
-IikzCeU9n/mR/nNLDndA/3Op6U/HTLNiIRYlTHCNOJYI3O5jffLp4OlsjKZznUzV
-j22JDpimVmA87fiSCsnbf76p8/1e6xJk4kkqMDN0GC9gIw+U3oN4uJfRywtHJp7H
-4/asRtk6</X509Certificate>
+          <X509Certificate>MIIC0TCCAbmgAwIBAgIIETl6LuVa9nQwDQYJKoZIhvcNAQENBQAwFzEVMBMGA1UE
+            AxMMaWNvLTgzMTMwMDY2MB4XDTI0MTExMTA4MjQ0OVoXDTI2MTExMTA4MjQ0OVow
+            FzEVMBMGA1UEAxMMaWNvLTgzMTMwMDY2MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+            MIIBCgKCAQEAs2Ocak1XXNslAwU5c38ImEZJbJC77AncXKrzhczStzz08t6IhrgC
+            qL3WKBiA7e5nqnWLUaN4I7fY9wbgZpVqZ8xVlWi1JgpodCZKEssaNzR8qpc1h38t
+            P098du5RbhV//B761Y7rC+dvOZWPRXaKonopZX5M4LKBEjYLKr4eFjNxKcibCMJT
+            ASuSeLiHmFCWIQEhYzbMjD57LCAFDnfsmOWZiAb3EfSZMBEiglHOv5f4Ohlxs04J
+            AfdgYDPmFTNz6yBEKI+TfEzkeyivPkktcq+cJB50ZWX5Q1TGmyqfpomY8U/0RMPS
+            NLXnonYG68mOlu9NYOmxVQviKuR5xaINEQIDAQABoyEwHzAdBgNVHQ4EFgQUnjlu
+            JFpmBs/d0uz9hjn1WOvfNSwwDQYJKoZIhvcNAQENBQADggEBAENVmisLnB83YceS
+            cbRf+kyFXP28JpKP8vTxPW/y4rYLrpCW0bpApeR0BEKP1Tplt+2UvJ8KuFtdSUK+
+            J0n5EpCbDzoejZZQlVbgHL9fV1rlfGA8KdHUguGbNoU4fcLfHORz0No7X45TXWHU
+            sr9r6DLgFog6EXxd5ZcSnUlyLBhiTzNiIF5CUWa55C/Q6Au2neq/d3LqUtq9/snd
+            M6y/FKj3cNYNLLH0qImXpOL3HoFYLtibfTbdhLNaewDqgPDLeTx5qg/5qriUuNob
+            CPNT9urmISr0HHJKiiZ4/YiQAAcbprNdnw87/r5knN+jNRfEU+tg0tzcxQgCH16t
+            QXTFgfM=</X509Certificate>
         </X509Data>
       </KeyInfo>
     </KeyDescriptor>
