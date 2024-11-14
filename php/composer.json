@@ -1,0 +1,17 @@
+{
+    "name": "slovensko-digital/slovensko-sk-login-php",
+    "autoload": {
+        "psr-4": {
+            "SlovenskoDigital\\SlovenskoSkLoginPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kristina Odziomkova",
+            "email": "kristina.odziomkova@brackets.sk"
+        }
+    ],
+    "require": {
+        "onelogin/php-saml": "^4.2"
+    }
+}
