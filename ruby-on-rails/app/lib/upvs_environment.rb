@@ -4,8 +4,8 @@ module UpvsEnvironment
   def sso_settings
     return @sso_settings if @sso_settings
 
-    idp_metadata = OneLogin::RubySaml::IdpMetadataParser.new.parse_to_hash(File.read(sso_metadata_file("upvs")))
-    sp_metadata = Hash.from_xml(File.read(sso_metadata_file(ENV.fetch("UPVS_SSO_SUBJECT")))).fetch("EntityDescriptor")
+    idp_metadata = OneLogin::RubySaml::IdpMetadataParser.new.parse_to_hash(File.read("../security/upvs_#{ENV.fetch("UPVS_ENV")}.metadata.xml"))
+    sp_metadata = Hash.from_xml(File.read(ENV.fetch("SP_METADATA_PATH"))).fetch("EntityDescriptor")
 
     @sso_settings ||= idp_metadata.merge(
       request_path: "/auth/saml",
@@ -26,13 +26,13 @@ module UpvsEnvironment
       sp_cert_multi: {
         signing: [
           {
-            certificate: sso_signing_certificate,
+            certificate: sp_metadata['SPSSODescriptor']['KeyDescriptor'].find { _1['use'] == 'signing' }['KeyInfo']['X509Data']['X509Certificate'],
             private_key: sso_signing_private_key
           }
         ],
         encryption: [
           {
-            certificate: sso_encryption_certificate,
+            certificate: sp_metadata['SPSSODescriptor']['KeyDescriptor'].find { _1['use'] == 'encryption' }['KeyInfo']['X509Data']['X509Certificate'],
             private_key: sso_encryption_private_key
           }
         ]
@@ -65,19 +65,7 @@ module UpvsEnvironment
     ENV.fetch("UPVS_SSO_SP_SIGNING_PRIVATE_KEY")
   end
 
-  def sso_signing_certificate
-    ENV.fetch("UPVS_SSO_SP_SIGNING_CERTIFICATE")
-  end
-
   def sso_encryption_private_key
     ENV.fetch("UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY")
-  end
-
-  def sso_encryption_certificate
-    ENV.fetch("UPVS_SSO_SP_ENCRYPTION_CERTIFICATE")
-  end
-
-  def sso_metadata_file(subject)
-    Rails.root.join("security", "#{subject}_#{Upvs.env}.metadata.xml").to_s
   end
 end
