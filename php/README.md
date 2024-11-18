@@ -78,30 +78,3 @@ $sp_config = [
 ```
 
 Pre jednoduchosť sa v tomto projekte metadáta nachádzajú priamo v PHP kóde, ale pri reálnom použití Vám odporúčame dať metadáta do premenných prostredia aby sa nedostali do verzionovacieho systému.
-
-## Integračný manuál
-Integračný manuál ÚPVS IAM je dostupný na [Partner framework portáli](https://kp.gov.sk/pf).
-
-Metadáta aj certifikáty musia byť zaregistrované v prostredí ÚPVS. Dáta v priečinku `../security` sú zaregistrované,
-ale slúžia len na demo účely.
-
-## Flow jednotlivých scenárov
-### Prihlásenie používateľa
-1. Začiatok procesu prihlásenia na `/` URL, SAML Request na prihlásenie cez ÚPVS portál.
-2. A) Ak používateľ na ÚPVS portáli nie je prihlásený, vyžiada a prihlásenie jedným z poskytovaných spôsobov. 
-V testovacom prostredí je prihlásenie možné iba cez meno a heslo.
-   
-   B) Ak používateľ na ÚPVS portáli už prihlásený je, tento krok sa preskočí.
-3. Redirect so SAML Response z ÚPVS portálu na URL `/auth/saml/callback`, uloženie potrebných dát do `$_SESSION`.
-4. Používateľ úspešne prihlásený na strane SP aj IdP.
-
-### Odhlásenie používateľa iniciované na strane SP
-1. Začiatok procesu odhlásenia na `/logout` URL, SAML Request na odhlásenie z ÚPVS portálu.
-2. Redirect so SAML Response z ÚPVS portálu na `/auth/saml/logout` endpoint, ak je SAML Response 
-úspešný tak odhlásenie používateľa na strane SP.
-3. Používateľ úspešne odhlásený na strane SP aj IdP, ostáva na SP portáli.
-
-### Odhlásenie používateľa iniciované na strane IdP
-1. Redirect so SAML Requestom z ÚPVS portálu na `/upvs/logout` URL, odhlásenie používateľa na strane SP.
-2. Redirect so SAML Logout Response zo SP na ÚPVS portál.
-3. Používateľ úspešne odhlásený na strane SP aj IdP, ostáva na IdP portáli.
