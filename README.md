@@ -24,8 +24,9 @@ Toto úložisko obsahuje ukážkové implementácie prihlasovania pomocou sloven
 
 ## Ukážkové implementácie
 - [Ruby on Rails](/ruby-on-rails)
+- [Java Tomcat s knižnicou Onelogin SAML Toolkit](/java-onelogin)
 
-## Odporučania a upozornenia pre vlastnú implementáciu
+## Odporúčania a upozornenia pre vlastnú implementáciu
 Pre úspešnú implementáciu prihlasovania cez slovensko.sk je potrebné upozorniť na niekoľko dôležitých detailov.
 
 1. Odporúčame začať spustením ukážkovej implementácie vo zvolenom programovacom jazyku (odporúčané knižnice, nastavenia,...) a až následne upravovať kód pre vlastnú implementáciu.
