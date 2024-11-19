@@ -1,0 +1,6 @@
+@eIDWebApiExample_HostAddress = http://localhost:5185
+
+GET {{eIDWebApiExample_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
