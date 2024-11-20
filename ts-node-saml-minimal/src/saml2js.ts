@@ -11,7 +11,7 @@ const idp = new saml2js.IdentityProvider({
   ],
   allow_unencrypted_assertion: false,
   force_authn: false,
-  sign_get_request: true
+  sign_get_request: true,
 });
 
 const sep = new saml2js.ServiceProvider({
@@ -27,6 +27,10 @@ const sep = new saml2js.ServiceProvider({
 
 function create_login_request_url_bound(fn) {
   return sep.create_login_request_url(idp, {}, fn);
+}
+
+function create_logout_request_url_bound(fn) {
+  return sep.create_logout_request_url(idp, {}, fn);
 }
 
 // fun((err, login_url, request_id) => {
@@ -62,8 +66,10 @@ export async function getLoginUrl() {
 
 export async function getLogoutUrl() {
   const [logout_url, request_id] = (await awaitable(
-    sep.create_logout_request_url
-  )(idp, {})) as unknown as [string, string];
+    create_logout_request_url_bound
+  )()) as unknown as [string, string];
+
+  console.log({ logout_url, request_id });
 
   return logout_url;
 }
@@ -120,3 +126,22 @@ export async function validateLoginResponse(request_body: {
 getLoginUrl().then(() => {
   console.log("done");
 });
+
+// logout url
+
+// sep.create_logout_request_url(idp, {}, (err, logout_url, request_id) => {
+//   if (err) {
+//     console.error(err);
+//     return;
+//   }
+//   console.log(logout_url);
+// });
+
+// login url
+// sep.create_login_request_url(idp, {}, (err, login_url, request_id) => {
+//   if (err) {
+//     console.error(err);
+//     return;
+//   }
+//   console.log(login_url);
+// });

@@ -3,7 +3,7 @@ import fastifyFormbody from "@fastify/formbody";
 import fs from "fs";
 import path from "path";
 import { __dirname } from "./utils";
-import { getLoginUrl, validateLoginResponse } from "./saml2js";
+import { getLoginUrl, getLogoutUrl, validateLoginResponse } from "./saml2js";
 
 // import { saml, getLoginUrl, getLoginForm } from "./node-saml";
 
@@ -30,6 +30,7 @@ fastify.get("/", async function handler(request, reply) {
             <ul>
             <li><a href="${await getLoginUrl()}">Login</a></li>
             <li><a href="/login">Login using POST Form</a></li>
+            <li><a href="/logout">Logout</a></li>
             </ul>
         </body>
     `;
@@ -41,6 +42,18 @@ fastify.get("/login", async function handler(request, reply) {
 
   // redirect to idp
   return reply.redirect(await getLoginUrl());
+});
+
+fastify.get("/logout", async function handler(request, reply) {
+  return reply.redirect(await getLogoutUrl());
+});
+
+fastify.get("/upvs/logout", async function handler(request, reply) {
+  return "?";
+});
+
+fastify.get("/auth/saml/logout", async function handler(request, reply) {
+  return "?";
 });
 
 fastify.post("/auth/saml/callback", async function handler(request, reply) {
@@ -62,6 +75,7 @@ fastify.post("/auth/saml/callback", async function handler(request, reply) {
             <ul>
             <li><a href="${await getLoginUrl()}">Login</a></li>
             <li><a href="/login">Login using POST Form</a></li>
+            <li><a href="/logout">Logout</a></li>
             </ul>
         </body>
     `;
