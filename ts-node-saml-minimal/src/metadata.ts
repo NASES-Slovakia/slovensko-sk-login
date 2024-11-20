@@ -68,13 +68,13 @@ export const sp_metadata = {
       (x) => x["@_use"] === "signing"
     )?.["KeyInfo"]["X509Data"]["X509Certificate"]
   ),
-  signing_private_key: UPVS_SSO_SP_SIGNING_PRIVATE_KEY,
+  signing_private_key: cleanCert(UPVS_SSO_SP_SIGNING_PRIVATE_KEY),
   encryption_cert: cleanCert(
     sp_xml["EntityDescriptor"]["SPSSODescriptor"]["KeyDescriptor"].find(
       (x) => x["@_use"] === "encryption"
     )?.["KeyInfo"]["X509Data"]["X509Certificate"]
   ),
-  encryption_private_key: UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY,
+  encryption_private_key: cleanCert(UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY),
 };
 
 const idp_xml = readXml(PATH_IDP_METADATA);

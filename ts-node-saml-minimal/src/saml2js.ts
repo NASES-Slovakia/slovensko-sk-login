@@ -1,30 +1,30 @@
 import saml2js from "saml2-js";
 import { idp_metadata, sp_metadata } from "./metadata";
-import { awaitable } from "./utils";
+import { awaitable, pemWrap, printLoginUrl } from "./utils";
 import zlib from "zlib";
 
 const idp = new saml2js.IdentityProvider({
   sso_login_url: idp_metadata.single_sign_on_service_url,
   sso_logout_url: idp_metadata.single_logout_service_url,
   certificates: [
-    idp_metadata.x509_signing_cert,
-    idp_metadata.x509_encryption_cert,
+    pemWrap("CERTIFICATE", idp_metadata.x509_signing_cert),
+    pemWrap("CERTIFICATE", idp_metadata.x509_encryption_cert),
   ],
-  allow_unencrypted_assertion: false,
+  allow_unencrypted_assertion: true,
   force_authn: false,
-  sign_get_request: false,
+  sign_get_request: true,
 });
 
 const sep = new saml2js.ServiceProvider({
   entity_id: sp_metadata.entity_id,
-  private_key: sp_metadata.signing_private_key,
-  certificate: sp_metadata.sigining_cert,
+  private_key: pemWrap("PRIVATE KEY", sp_metadata.signing_private_key),
+  certificate: pemWrap("CERTIFICATE", sp_metadata.sigining_cert),
   assert_endpoint: sp_metadata.assertion_consumer_service_url,
-  allow_unencrypted_assertion: false,
+  allow_unencrypted_assertion: true,
   nameid_format: "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
   force_authn: false,
-  sign_get_request: false,
-  audience: idp_metadata.entity_id,
+  sign_get_request: true,
+  notbefore_skew: 30,
 });
 
 console.log({ idp, sep });
@@ -59,31 +59,22 @@ function create_logout_request_url_bound(fn) {
  *
  * @returns [login_url, request_id]
  */
-export async function getLoginUrl() {
-  const [login_url, request_id] = (await awaitable(
-    create_login_request_url_bound
-  )()) as unknown as [string, string];
+export async function getLoginUrl(): Promise<string> {
+  // const [login_url, request_id] = (await awaitable(
+  //   create_login_request_url_bound
+  // )()) as unknown as [string, string];
 
-  const url = new URL(login_url);
-  const samlRequest = url.searchParams.get("SAMLRequest");
-  console.log({
-    login_url,
-    request_id,
-    samlRequest,
+  return new Promise((resolve, reject) => {
+    sep.create_login_request_url(idp, {}, (err, login_url, request_id) => {
+      if (err) {
+        console.error(err);
+        return reject(err);
+      }
+      console.log(login_url);
+      printLoginUrl(login_url);
+      resolve(login_url);
+    });
   });
-
-  if (!samlRequest) {
-    throw new Error("SAMLRequest not found in login_url");
-  }
-  zlib.inflateRaw(Buffer.from(samlRequest, "base64"), (err, buffer) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log(buffer.toString("utf-8"));
-  });
-
-  return login_url;
 }
 
 export async function getLogoutUrl() {
@@ -145,9 +136,9 @@ export async function validateLoginResponse(request_body: {
 //   console.log("done");
 // });
 
-getLoginUrl().then(() => {
-  console.log("done");
-});
+// getLoginUrl().then(() => {
+//   console.log("done");
+// });
 
 // logout url
 
@@ -167,3 +158,23 @@ getLoginUrl().then(() => {
 //   }
 //   console.log(login_url);
 // });
+
+// console.log("create_authn_request_xml1");
+// const xml = sep.create_authn_request_xml(idp, {});
+// console.log(xml);
+// const url = new URL(idp_metadata.single_sign_on_service_url);
+// url.searchParams.set("SAMLRequest", Buffer.from(xml).toString("base64"));
+// console.log(url.toString());
+
+export function getLoginForm() {
+  console.log("create_authn_request_xml1");
+  const xml = sep.create_authn_request_xml(idp, {});
+  console.log(xml);
+  const url = new URL(idp_metadata.single_sign_on_service_url);
+  url.searchParams.set("SAMLRequest", Buffer.from(xml).toString("base64"));
+  console.log(url.toString());
+  return {
+    entityEndpoint: idp_metadata.single_sign_on_service_url,
+    context: Buffer.from(zlib.deflateRawSync(xml)).toString("base64"),
+  };
+}

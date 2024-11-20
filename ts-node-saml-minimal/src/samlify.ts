@@ -7,10 +7,7 @@ import {
   UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY,
   UPVS_SSO_SP_SIGNING_PRIVATE_KEY,
 } from "./metadata";
-
-function pemWrap(header: string, body: string) {
-  return `-----BEGIN ${header}-----\n${body}\n-----END ${header}-----`;
-}
+import { pemWrap, printLoginUrl, printSamlRequest } from "./utils";
 
 export const service_provider = saml.ServiceProvider({
   metadata: fs.readFileSync(PATH_SP_METADATA, "utf8"),
@@ -28,28 +25,33 @@ export const service_provider = saml.ServiceProvider({
 
 export const identity_provider = saml.IdentityProvider({
   metadata: fs.readFileSync(PATH_IDP_METADATA, "utf8"),
-  encPrivateKey: pemWrap("PRIVATE KEY", UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY),
-  privateKey: pemWrap("PRIVATE KEY", UPVS_SSO_SP_SIGNING_PRIVATE_KEY),
+  // encPrivateKey: pemWrap("PRIVATE KEY", UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY),
+  // privateKey: pemWrap("PRIVATE KEY", UPVS_SSO_SP_SIGNING_PRIVATE_KEY),
   requestSignatureAlgorithm:
     "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512",
-  nameIDFormat: ["urn:oasis:names:tc:SAML:2.0:nameid-format:transient"],
+  // nameIDFormat: ["urn:oasis:names:tc:SAML:2.0:nameid-format:transient"],
 });
 
 export function samlifyGetLoginUrl() {
-  const req = service_provider.createLoginRequest(
-    identity_provider,
-    "redirect"
-  );
-  console.log(req.context);
-  console.log(
-    req.context
-      .split("?")[1]
-      .split("&")
-      .reduce((acc, curr) => {
-        const [key, value] = curr.split("=");
-        acc[key] = decodeURIComponent(value);
-        return acc;
-      }, {})
-  );
+  const signatureInUrl = false;
+  let req;
+  if (signatureInUrl) {
+    req = service_provider.createLoginRequest(identity_provider, "redirect");
+    console.log(req);
+    printLoginUrl(req.context);
+  } else {
+    req = service_provider.createLoginRequest(identity_provider, "post");
+    console.log(req);
+    printSamlRequest(req.context);
+    const url = new URL(req.entityEndpoint);
+    url.searchParams.set(req.type, req.context);
+    console.log(`\n\n${url}\n\n`);
+  }
+
   return req.context;
+}
+
+// run if not imported
+if (typeof require == "undefined" || require.main === module) {
+  console.log(samlifyGetLoginUrl());
 }

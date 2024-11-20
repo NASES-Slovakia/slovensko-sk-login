@@ -5,10 +5,8 @@ import {
   UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY,
   UPVS_SSO_SP_SIGNING_PRIVATE_KEY,
 } from "./metadata";
+import { pemWrap } from "./utils";
 
-function pemWrap(header: string, body: string) {
-  return `-----BEGIN ${header}-----\n${body}\n-----END ${header}-----`;
-}
 
 // const metadata = generateServiceProviderMetadata({
 //   issuer: "https://example.com",

@@ -3,7 +3,7 @@ import fastifyFormbody from "@fastify/formbody";
 import fs from "fs";
 import path from "path";
 import { __dirname } from "./utils";
-import { getLoginUrl, validateLoginResponse } from "./saml2js";
+import { getLoginForm, getLoginUrl, validateLoginResponse } from "./saml2js";
 
 // import { saml, getLoginUrl, getLoginForm } from "./node-saml";
 
@@ -20,6 +20,7 @@ fastify.register(fastifyFormbody);
 // Declare a route
 fastify.get("/", async function handler(request, reply) {
   reply.type("text/html");
+  const form = await getLoginForm();
   return `
     <html>
         <head>
@@ -30,6 +31,14 @@ fastify.get("/", async function handler(request, reply) {
             <ul>
             <li><a href="${await getLoginUrl()}">Login</a></li>
             <li><a href="/login">Login using POST Form</a></li>
+            <form id="saml-form" method="post" action="${
+              form.entityEndpoint
+            }" autocomplete="off">
+                <input type="hidden" name="SAMLRequest" value="${
+                  form.context
+                }" />
+                <input type="submit" value="Login" />
+            </form>
             <li><a href="/logout">Logout</a></li>
             </ul>
         </body>
