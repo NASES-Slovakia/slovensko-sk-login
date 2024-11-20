@@ -9,6 +9,9 @@ const idp = new saml2js.IdentityProvider({
     idp_metadata.x509_signing_cert,
     idp_metadata.x509_encryption_cert,
   ],
+  allow_unencrypted_assertion: false,
+  force_authn: false,
+  sign_get_request: true
 });
 
 const sep = new saml2js.ServiceProvider({
@@ -16,6 +19,10 @@ const sep = new saml2js.ServiceProvider({
   private_key: sp_metadata.signing_private_key,
   certificate: sp_metadata.sigining_cert,
   assert_endpoint: sp_metadata.assertion_consumer_service_url,
+  allow_unencrypted_assertion: false,
+  nameid_format: "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
+  force_authn: false,
+  sign_get_request: true,
 });
 
 function create_login_request_url_bound(fn) {
@@ -72,18 +79,22 @@ export async function validateLoginResponse(request_body: {
     depth: null,
   });
 
-  sep.post_assert(
-    idp,
-    { request_body, allow_unencrypted_assertion: true },
-    (err, resp) => {
-      console.log("post_assert");
-      if (err) {
-        console.dir(err, { depth: null });
-        return;
+  return new Promise((resolve, reject) => {
+    sep.post_assert(
+      idp,
+      { request_body, allow_unencrypted_assertion: true },
+      (err, resp) => {
+        console.log("post_assert");
+        if (err) {
+          console.dir(err, { depth: null });
+
+          return resolve(JSON.stringify(err, null, 2));
+        }
+        console.log({ resp });
+        resolve(JSON.stringify(resp.user, null, 2));
       }
-      console.log({ resp });
-    }
-  );
+    );
+  });
 
   //   sep.redirect_assert(
   //     idp,

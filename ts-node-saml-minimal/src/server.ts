@@ -47,7 +47,7 @@ fastify.post("/auth/saml/callback", async function handler(request, reply) {
   console.log("SAML callback", request.query);
   console.log("SAML callback body", request.body);
 
-  validateLoginResponse(request.body as any);
+  const res = await validateLoginResponse(request.body as any);
   reply.type("text/html");
   return `
     <html>
@@ -55,7 +55,10 @@ fastify.post("/auth/saml/callback", async function handler(request, reply) {
             <title>Test</title>
         </head>
         <body>
-            <h1>Test</h1>
+            <h1>Response</h1>
+            <code>
+            ${res}
+            </code>
             <ul>
             <li><a href="${await getLoginUrl()}">Login</a></li>
             <li><a href="/login">Login using POST Form</a></li>
