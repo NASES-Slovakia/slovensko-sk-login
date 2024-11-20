@@ -1,6 +1,7 @@
 import saml2js from "saml2-js";
 import { idp_metadata, sp_metadata } from "./metadata";
 import { awaitable } from "./utils";
+import zlib from "zlib";
 
 const idp = new saml2js.IdentityProvider({
   sso_login_url: idp_metadata.single_sign_on_service_url,
@@ -11,7 +12,7 @@ const idp = new saml2js.IdentityProvider({
   ],
   allow_unencrypted_assertion: false,
   force_authn: false,
-  sign_get_request: true,
+  sign_get_request: false,
 });
 
 const sep = new saml2js.ServiceProvider({
@@ -22,8 +23,12 @@ const sep = new saml2js.ServiceProvider({
   allow_unencrypted_assertion: false,
   nameid_format: "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
   force_authn: false,
-  sign_get_request: true,
+  sign_get_request: false,
+  audience: idp_metadata.entity_id,
 });
+
+console.log({ idp, sep });
+// console.log(sep.create_metadata());
 
 function create_login_request_url_bound(fn) {
   return sep.create_login_request_url(idp, {}, fn);
@@ -59,7 +64,24 @@ export async function getLoginUrl() {
     create_login_request_url_bound
   )()) as unknown as [string, string];
 
-  console.log({ login_url, request_id });
+  const url = new URL(login_url);
+  const samlRequest = url.searchParams.get("SAMLRequest");
+  console.log({
+    login_url,
+    request_id,
+    samlRequest,
+  });
+
+  if (!samlRequest) {
+    throw new Error("SAMLRequest not found in login_url");
+  }
+  zlib.inflateRaw(Buffer.from(samlRequest, "base64"), (err, buffer) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(buffer.toString("utf-8"));
+  });
 
   return login_url;
 }
