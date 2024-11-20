@@ -1,0 +1,28 @@
+{
+  "name": "ts-node-saml-minimal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch src/server.ts --target es2022 --format ESM "
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@fastify/formbody": "^8.0.1",
+    "@node-saml/node-saml": "^5.0.0",
+    "@types/saml2-js": "^3.0.4",
+    "dotenv": "^16.4.5",
+    "fast-xml-parser": "^4.5.0",
+    "fastify": "^5.1.0",
+    "saml2-js": "^4.0.2",
+    "samlify": "^2.8.11"
+  }
+}

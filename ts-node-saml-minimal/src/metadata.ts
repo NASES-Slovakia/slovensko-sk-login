@@ -1,0 +1,112 @@
+import fs from "fs";
+import path from "path";
+import dotenv from "dotenv"; // we use dotenv because of multiline values
+import { assertIsDefined, __dirname } from "./utils";
+import { XMLParser } from "fast-xml-parser";
+dotenv.config({
+  path: ".env.development",
+});
+
+function cleanCert(cert: string) {
+  return cert
+    .replace(/[\n\r\t ]/g, "")
+    .replace(/-----BEGIN CERTIFICATE-----/, "")
+    .replace(/-----END CERTIFICATE-----/, "");
+}
+
+// Load environment variables
+export const SP_METADATA_PATH = assertIsDefined(
+  process.env.SP_METADATA_PATH,
+  "SP_METADATA_PATH is not defined"
+);
+export const UPVS_ENV = assertIsDefined(
+  process.env.UPVS_ENV,
+  "UPVS_ENV is not defined"
+);
+export const UPVS_SSO_SP_SIGNING_PRIVATE_KEY = assertIsDefined(
+  process.env.UPVS_SSO_SP_SIGNING_PRIVATE_KEY,
+  "UPVS_SSO_SP_SIGNING_PRIVATE_KEY is not defined"
+);
+export const UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY = assertIsDefined(
+  process.env.UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY,
+  "UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY is not defined"
+);
+
+export const PATH_SP_METADATA = path.resolve(SP_METADATA_PATH);
+export const PATH_IDP_METADATA = path.resolve(
+  `../security/upvs_${UPVS_ENV}.metadata.xml`
+);
+
+function readXml(fp: string) {
+  const parser = new XMLParser({
+    attributeNamePrefix: "@_",
+    parseAttributeValue: true,
+    ignoreAttributes: false,
+  });
+  const f = fs.readFileSync(fp, "utf8");
+  f.replace(/[\n\r\t]/g, "");
+  let result = parser.parse(f);
+
+  return result;
+}
+
+//read xmlData your own
+const sp_xml = readXml(PATH_SP_METADATA);
+export const sp_metadata = {
+  entity_id: sp_xml["EntityDescriptor"]["@_entityID"],
+  assertion_consumer_service_url:
+    sp_xml["EntityDescriptor"]["SPSSODescriptor"][
+      "AssertionConsumerService"
+    ][0]["@_Location"],
+
+  single_logout_service_url:
+    sp_xml["EntityDescriptor"]["SPSSODescriptor"]["SingleLogoutService"][0][
+      "@_Location"
+    ],
+  sigining_cert: cleanCert(
+    sp_xml["EntityDescriptor"]["SPSSODescriptor"]["KeyDescriptor"].find(
+      (x) => x["@_use"] === "signing"
+    )?.["KeyInfo"]["X509Data"]["X509Certificate"]
+  ),
+  signing_private_key: UPVS_SSO_SP_SIGNING_PRIVATE_KEY,
+  encryption_cert: cleanCert(
+    sp_xml["EntityDescriptor"]["SPSSODescriptor"]["KeyDescriptor"].find(
+      (x) => x["@_use"] === "encryption"
+    )?.["KeyInfo"]["X509Data"]["X509Certificate"]
+  ),
+  encryption_private_key: UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY,
+};
+
+const idp_xml = readXml(PATH_IDP_METADATA);
+export const idp_metadata = {
+  entity_id: idp_xml["md:EntityDescriptor"]["@_entityID"],
+  single_sign_on_service_url:
+    idp_xml["md:EntityDescriptor"]["md:IDPSSODescriptor"][
+      "md:SingleSignOnService"
+    ][0]["@_Location"],
+  single_logout_service_url:
+    idp_xml["md:EntityDescriptor"]["md:IDPSSODescriptor"][
+      "md:SingleLogoutService"
+    ][0]["@_Location"],
+  x509_signing_cert: cleanCert(
+    idp_xml["md:EntityDescriptor"]["md:IDPSSODescriptor"][
+      "md:KeyDescriptor"
+    ].find((key) => key["@_use"] === "signing")?.["dsig:KeyInfo"][
+      "dsig:X509Data"
+    ]["dsig:X509Certificate"]
+  ),
+  x509_encryption_cert: cleanCert(
+    idp_xml["md:EntityDescriptor"]["md:IDPSSODescriptor"][
+      "md:KeyDescriptor"
+    ].find((key) => key["@_use"] === "encryption")?.["dsig:KeyInfo"][
+      "dsig:X509Data"
+    ]["dsig:X509Certificate"]
+  ),
+};
+// console.dir(
+//   {
+//     idp_metadata,
+//     sp_metadata,
+//   },
+//   { depth: null }
+// );
