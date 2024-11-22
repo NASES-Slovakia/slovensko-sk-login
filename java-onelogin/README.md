@@ -1,12 +1,17 @@
-# O čom to je
+# Java-saml slovensko.sk login
 
-Toto demo ukazuje, ako sa dá použiť vo vašej Tomcat aplikácii websso prihlasovanie voči Slovensko.sk s použitím knižnice SAML Java Toolkit od Onelogin. 
-Nanešťastie táto knižnica nepodporuje rozdielne kľúče a certifikáty pre podpisovanie a šifrovanie.
-Tak sme si ju museli upraviť a pridať tam ďalšie dva konfiguračné parametre.
+Tomcat aplikácii s websso prihlasovaním voči Slovensko.sk s použitím knižnice [SAML Java Toolkit od Onelogin](https://github.com/SAML-Toolkits/java-saml). 
 
-# Inštalácia
+## Rozdielne kľúče pre podpisovanie a šifrovanie
 
-Takže krok 1. - stiahnite si https://github.com/archimetes/java-saml a zbuildujte si ho.
+Pri tejto integrácii je možné v NASESe zaregistrovať service provider metadáta s rozdielnymi kľúčmi a certifikátmi pre podpisovanie a šifrovanie.
+Java-saml od Onelogin ale podporuje nastavenie iba jedného rovnakého certifikátu a kľúča pre obe použitia, čo je pri SAML bežné.
+
+Ak ale naozaj potrebujete nastaviť rozdielne certifikáty a kľúče, použite tento [fork java-saml od Archimetes](https://github.com/archimetes/java-saml).
+Fork si potrebujete lokálne zbuildovať, nainštalovať a v `pom.xml` použiť túto verziu `2.9.1-SK`.
+Konfigurácia pre tento scenár je uložená v: [two_keys_setup.webssodemo.saml.properties](bind-mounts/portal/usr/local/tomcat/conf/two_keys_setup.webssodemo.saml.properties)
+
+## Inštalácia
 
 Zbuildujte si tento projekt:
 ```
@@ -27,7 +32,8 @@ Najprv vymažte starý keystore a potom:
 ```
 keytool -genkey -keyalg RSA -noprompt -alias tomcat -dname "CN=localhost.dev, OU=NA, O=NA, L=NA, S=NA, C=NA" -keystore bind-mounts/portal/usr/local/tomcat/conf/localhost-rsa.jks -validity 9999 -storepass changeme -keypass changeme
 ```
-# Podrobnosti
+
+## Konfigurácia pre java-saml
 
 Konfiguračný súbor pre SAML toolkit býva uložený na classpath pod názvom *onelogin.saml.properties*. 
 Pre účely testovania a vývoja je ale výhodnejšie, keď je uložný mimo classpath a načítava vždy nanovo. Od toho máme triedu [Settings.java](src/main/java/com/archimetes/cgpcon/websso/Settings.java), 
@@ -51,10 +57,5 @@ Pre Identity providera okopírujete hodnoty, čo ste dostali od NASESu v metadá
 * onelogin.saml2.idp.single_logout_service.response.url=https://prihlasenie.upvsfix.gov.sk/oamfed/idp/samlv20
 * onelogin.saml2.idp.x509cert=MIIDXjCCAkagAwIBA................=
 
-## Generovanie certifikátov
-TODO
-
-Po vygenerovaní certifikátov is ich dajte do webssodemo.saml.properties a potom si kliknite na link SP metadáta /sp-metadata.xml v pätičke.
-Vygenerovný súbor môžete použiť na registráciu v NASESE.
 
 

@@ -9,7 +9,6 @@ services:
       - ./bind-mounts/portal/usr/local/tomcat/conf/webssodemo.saml.properties:/usr/local/tomcat/conf/webssodemo.saml.properties
       - ./bind-mounts/portal/usr/local/tomcat/conf/localhost-rsa.jks:/usr/local/tomcat/conf/localhost-rsa.jks
     ports:
-      - 5005:5005
-      - 8443:8443
+      - 3001:3001
     environment:
       - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:5005
