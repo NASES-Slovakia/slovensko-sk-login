@@ -24,14 +24,8 @@ docker compose up -d
 ```
 A aby sme si to celé mohli aj pozrieť, treba ešte nasledovné veci:
 * VPN na FIX prostredie Slovensko.sk
-* do etc/host si treba pridať `127.0.0.1  localhost.dev`
+* do `etc/host` si treba pridať `127.0.0.1  localhost.dev`
 * otvoriť si stránku https://localhost.dev:3001/ a pridať si jej certifikát medzi dôveryhodné
-
-Keby sa vám nepáčila myšlienka, že budete dôverovať certifikátu stiahnutému z internetov, tak si vygenerujte nový. 
-Najprv vymažte starý keystore a potom:
-```
-keytool -genkey -keyalg RSA -noprompt -alias tomcat -dname "CN=localhost.dev, OU=NA, O=NA, L=NA, S=NA, C=NA" -keystore bind-mounts/portal/usr/local/tomcat/conf/localhost-rsa.jks -validity 9999 -storepass changeme -keypass changeme
-```
 
 ## Konfigurácia pre java-saml
 
