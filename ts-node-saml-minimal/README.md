@@ -1,5 +1,7 @@
 # ts-node-saml-minimal - minimalistic SAML SP in Node.js
 
+v tomto momente funguje iba `@node-saml/node-saml` implementácia, ale plán je pridať aj `saml2-js` a `samlify` implementácie
+
 ## Setup
 
 1. add `127.0.0.1 localhost.dev` to `/etc/hosts`
