@@ -6,6 +6,10 @@ Toto úložisko obsahuje ukážkové implementácie prihlasovania pomocou sloven
 
 **UPOZORNENIE: Pre produkčné použitie je potrebné prejst aj pomerne zložitým formálnym procesom integrácie s NASES. Detaily tohto procesu nájdete na [partner framework portáli](https://www.nases.gov.sk/sluzby/sluzby-pre-po-a-ovm/integracie).**
 
+
+https://github.com/user-attachments/assets/8d57c805-ff56-4cef-84b0-aa5a0abee3ac
+
+
 ## Predpoklady
 1. **Prístup do testovacieho prostredia slovensko.sk**  
   Na to, aby ste mohli začať testovať prihlasovanie cez testovacie identity slovensko.sk budete potrebovať prístup na testovacie prostredie slovensko.sk (https://portal.upvsfixnew.gov.sk).  
@@ -13,12 +17,12 @@ Toto úložisko obsahuje ukážkové implementácie prihlasovania pomocou sloven
   Informácie ohľadom žiadania o vytvorenie infraštruktúrneho prepojenia sú uvedené v dokumente s názvom *Všeobecný popis integrácie OVM, PO* v sekcii Žiadosť o vytvorenie infraštruktúrneho prepojenia (FIX). Dokument sa nachádza na [partner framework portáli](https://www.nases.gov.sk/sluzby/sluzby-pre-po-a-ovm/integracie) v časti *Integrácia na ÚPVS*, *Ako začať*.
 
 
-3. **Testovacie identity zriadené**  
+2. **Testovacie identity zriadené**  
   Na prihlasovanie v testovacom prostredí sa **NEDÁ** za bežných okolností použiť občiansky preukaz ani aplikácia Slovensko v mobile, používajú sa testovacie identity, ktoré sa prihlasujú menom a heslom. Správajú sa však rovnako. Môžete o ne požiadať NASES alebo využiť zdielanú testovaciu identitu, ktorá má meno `E0005182537` a heslo `Poprad@Ta3`.  
    Informácie ohľadom žiadania o testovacie identity sú uvedené v dokumente s názvom *Všeobecný popis integrácie OVM, PO* v sekcii *Žiadosť o zriadenie testovacích identít*. Dokument sa nachádza na [partner framework portáli](https://www.nases.gov.sk/sluzby/sluzby-pre-po-a-ovm/integracie) v časti *Integrácia na ÚPVS*, *Ako začať*.
 
 
-4. **Zaregistrované service provider (SP) metadáta**  
+3. **Zaregistrované service provider (SP) metadáta**  
   Ukážkové implementácie používajú už zaregistrované metadáta pre host `localhost.dev` a bežia na https://localhost.dev:3001/  
   Ak chcete využívať inú adresu, je potrebné si zaregistrovať vlastné metadáta. Návod k registrácii a požiadavkam na SP metadáta: https://www.slovensko.sk/_img/CMS4/Navody/navod_poskytovatelia_sluzieb.pdf    
 
