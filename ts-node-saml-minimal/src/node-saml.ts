@@ -71,7 +71,7 @@ console.log({
   ),
 });
 
-export async function getLoginUrl(): Promise<string> {
+export async function getIdpLoginUrl(): Promise<string> {
   const message = await saml.getAuthorizeMessageAsync("", samlHostUnused, {});
   const params = new URLSearchParams();
   const req = message.SAMLRequest;
@@ -105,6 +105,18 @@ export async function validateRedirectResponse(
 ) {
   console.dir({ originalQuery, query });
   return saml.validateRedirectAsync(query, originalQuery);
+}
+
+export async function getLogoutReplyUrl(
+  samlLogoutRequestProfile: Profile,
+  logOutSuccess: boolean
+) {
+  return saml.getLogoutResponseUrlAsync(
+    samlLogoutRequestProfile,
+    "",
+    {},
+    logOutSuccess
+  );
 }
 
 export async function validatePostResponse(body: Record<string, string>) {

@@ -16,10 +16,11 @@ import { __dirname } from "./utils.js";
 
 import {
   getLoginForm,
-  getLoginUrl,
+  getIdpLoginUrl,
   getIdpLogoutUrl,
   validatePostResponse,
   validateRedirectResponse,
+  getLogoutReplyUrl,
 } from "./node-saml.js";
 
 interface Profile {
@@ -37,6 +38,11 @@ declare module "fastify" {
 
 const ZCallbackRequestBody = z.object({
   SAMLResponse: z.string(),
+});
+
+const ZLogoutQuery = z.object({
+  SAMLRequest: z.string().optional(),
+  SAMLResponse: z.string().optional(),
 });
 
 // import { saml, getLoginUrl, getLoginForm } from "./node-saml";
@@ -70,7 +76,7 @@ fastify.get("/", async function handler(request: any, reply: any) {
             ${
               !request.session?.saml?.profile ||
               request.session?.saml?.loggedOut
-                ? `<a href="${await getLoginUrl()}">Login</a>`
+                ? `<a href="${await getIdpLoginUrl()}">Login</a>`
                 : `<a href="${await getIdpLogoutUrl({
                     profile: request.session.saml.profile,
                   })}">Logout</a>`
@@ -100,28 +106,70 @@ const getQueryFromUrl = (url: string) => {
 fastify.get("/upvs/logout", async function handler(request: any, reply: any) {
   console.log("UPVS logout", request);
   console.log("UPVS logout query", request.query);
+
+  // Validate if query comes in the correct format
+  const requestQuery = ZLogoutQuery.parse(request.query);
+
+  console.log(requestQuery);
+
+  // Check if query is valid
   const result = await validateRedirectResponse(
-    request.query as any,
+    requestQuery,
     getQueryFromUrl(request.url)
   );
 
+  // Save query data to session
   request.session.saml = result;
 
-  // Redirect to idp?
+  if (requestQuery.SAMLResponse && requestQuery.SAMLRequest) {
+    throw new Error("Both SAMLResponse and SAMLRequest are present");
+  }
+
+  if (requestQuery.SAMLResponse) {
+    reply.redirect("/");
+    return result;
+  }
+
+  if (requestQuery.SAMLRequest && result.profile && result.loggedOut) {
+    reply.redirect(await getLogoutReplyUrl(result.profile, true));
+    return result;
+  }
+
   return result;
 });
 
 fastify.get(
   "/auth/saml/logout",
   async function handler(request: any, reply: any) {
+    // Validate if query comes in the correct format
+    const requestQuery = ZLogoutQuery.parse(request.query);
+
+    console.log(requestQuery);
+
+    // Check if query is valid
     const result = await validateRedirectResponse(
-      request.query as any,
+      requestQuery,
       getQueryFromUrl(request.url)
     );
+
+    // Save query data to session
     request.session.saml = result;
 
-    // Redirect to idp?
-    reply.redirect("/");
+    if (requestQuery.SAMLResponse && requestQuery.SAMLRequest) {
+      throw new Error("Both SAMLResponse and SAMLRequest are present");
+    }
+
+    if (requestQuery.SAMLResponse) {
+      reply.redirect("/");
+      return result;
+    }
+
+    if (requestQuery.SAMLRequest && result.profile && result.loggedOut) {
+      reply.redirect(await getLogoutReplyUrl(result.profile, true));
+      return result;
+    }
+
+    return result;
   }
 );
 
