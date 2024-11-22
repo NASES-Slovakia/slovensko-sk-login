@@ -1,10 +1,10 @@
 // import { samlifyGetLoginUrl } from "./samlify";
 // samlifyGetLoginUrl();
 
-import { getLoginUrl } from "../saml/node-saml.js";
+import { getIdpLoginUrl } from "../saml/node-saml.js";
 // import { getLoginUrl } from "./saml2js";
 
-const url = await getLoginUrl();
+const url = await getIdpLoginUrl();
 console.log("Login URL:", url);
 
 fetch(url, {
