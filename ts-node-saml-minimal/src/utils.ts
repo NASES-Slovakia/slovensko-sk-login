@@ -5,34 +5,9 @@ import zlib from "zlib";
 export const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 export const __dirname = path.dirname(__filename); // get the name of the directory
 
-export function assertIsDefined<T>(
-  val: T,
-  failureMessage?: string
-): NonNullable<T> {
-  if (val === undefined || val === null) {
-    if (failureMessage) {
-      console.log({ val });
-      throw new Error(failureMessage);
-    }
-    throw new Error(`Expected 'val' to be defined, but received ${val}`);
-  }
-  return val;
-}
-
-export function awaitable(fn: Function) {
-  return function (...args: any[]) {
-    return new Promise((resolve, reject) => {
-      fn(...args, (err: any, ...args: unknown[]) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(args);
-        }
-      });
-    });
-  };
-}
-
+/**
+ * Debugging func to print the SAMLRequest from a login_url
+ */
 export async function printSamlRequestUrl(login_url: string) {
   const url = new URL(login_url);
   const samlRequest = url.searchParams.get("SAMLRequest");
@@ -40,6 +15,9 @@ export async function printSamlRequestUrl(login_url: string) {
   printSamlRequest(samlRequest);
 }
 
+/**
+ * Debugging func to print the SAMLRequest
+ */
 export async function printSamlRequest(samlRequest: string | null) {
   if (!samlRequest) {
     throw new Error("SAMLRequest not found in login_url");
@@ -67,6 +45,9 @@ export async function printSamlRequest(samlRequest: string | null) {
   return samlRequestDecoded;
 }
 
+/**
+ * Wrap a string in PEM format - 64 characters per line, with header and footer
+ */
 export function pemWrap(header: string, body: string) {
   const bodyCopy = body.split(String.raw`\n`).join("\n");
   let lines: string[] = [];
@@ -77,4 +58,11 @@ export function pemWrap(header: string, body: string) {
   const output = `-----BEGIN ${header}-----\n${wrappedBody}\n-----END ${header}-----`;
   console.log(output);
   return output;
+}
+
+
+
+export function getQueryFromUrl(url: string) {
+  const u = new URL(url, "https://localhost.dev:3001");
+  return u.search.substring(1); // remove leading `?`
 }

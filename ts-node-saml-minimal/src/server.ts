@@ -5,7 +5,7 @@ import { fastifyCookie } from "@fastify/cookie";
 import * as fs from "fs";
 import * as path from "path";
 import { z } from "zod";
-import { __dirname } from "./utils.js";
+import { __dirname, getQueryFromUrl } from "./utils.js";
 // import {
 //   getLoginForm,
 //   getLoginUrl,
@@ -15,13 +15,12 @@ import { __dirname } from "./utils.js";
 // } from "./saml2js";
 
 import {
-  getLoginForm,
   getIdpLoginUrl,
   getIdpLogoutUrl,
   validatePostResponse,
   validateRedirectResponse,
   getLogoutReplyUrl,
-} from "./node-saml.js";
+} from "./saml/node-saml.js";
 
 interface Profile {
   issuer: string;
@@ -36,14 +35,18 @@ declare module "fastify" {
   }
 }
 
-const ZCallbackRequestBody = z.object({
-  SAMLResponse: z.string(),
-});
+const ZCallbackRequestBody = z
+  .object({
+    SAMLResponse: z.string(),
+  })
+  .catchall(z.string());
 
-const ZLogoutQuery = z.object({
-  SAMLRequest: z.string().optional(),
-  SAMLResponse: z.string().optional(),
-});
+const ZLogoutQuery = z
+  .object({
+    SAMLRequest: z.string().optional(),
+    SAMLResponse: z.string().optional(),
+  })
+  .catchall(z.string());
 
 // import { saml, getLoginUrl, getLoginForm } from "./node-saml";
 
@@ -90,27 +93,12 @@ fastify.get("/", async function handler(request: any, reply: any) {
     `;
 });
 
-// fastify.get("/login", async function handler(request, reply) {
-//   // reply.type("text/html");
-//   // return getLoginForm();
-
-//   // redirect to idp
-//   return reply.redirect(await getLoginUrl());
-// });
-
-const getQueryFromUrl = (url: string) => {
-  const u = new URL(url, "https://localhost.dev");
-  return u.search.substring(1); // remove leading `?`
-};
 
 fastify.get("/upvs/logout", async function handler(request: any, reply: any) {
-  console.log("UPVS logout", request);
   console.log("UPVS logout query", request.query);
 
   // Validate if query comes in the correct format
   const requestQuery = ZLogoutQuery.parse(request.query);
-
-  console.log(requestQuery);
 
   // Check if query is valid
   const result = await validateRedirectResponse(
@@ -119,6 +107,7 @@ fastify.get("/upvs/logout", async function handler(request: any, reply: any) {
   );
 
   // Save query data to session
+  // Usually on successful logout you would clear the session, but for this example we keep it
   request.session.saml = result;
 
   if (requestQuery.SAMLResponse && requestQuery.SAMLRequest) {
@@ -141,10 +130,9 @@ fastify.get("/upvs/logout", async function handler(request: any, reply: any) {
 fastify.get(
   "/auth/saml/logout",
   async function handler(request: any, reply: any) {
+    console.log("SAML logout query", request.query);
     // Validate if query comes in the correct format
     const requestQuery = ZLogoutQuery.parse(request.query);
-
-    console.log(requestQuery);
 
     // Check if query is valid
     const result = await validateRedirectResponse(
@@ -153,6 +141,7 @@ fastify.get(
     );
 
     // Save query data to session
+    // Usually on successful logout you would clear the session, but for this example we keep it
     request.session.saml = result;
 
     if (requestQuery.SAMLResponse && requestQuery.SAMLRequest) {
@@ -176,7 +165,6 @@ fastify.get(
 fastify.post(
   "/auth/saml/callback",
   async function handler(request: any, reply: any) {
-    console.log("SAML callback", request.query);
     console.log("SAML callback body", request.body);
 
     const requestBody = ZCallbackRequestBody.parse(request.body); // validate request body
@@ -192,7 +180,7 @@ fastify.post(
 
 // Run the server!
 try {
-  console.log("Starting server on \n\n https://localhost.dev:3001\n\n");
+  console.log("Starting server on \n\n https://localhost.dev:3001/\n\n");
   await fastify.listen({ port: 3001 });
 } catch (err) {
   fastify.log.error(err);

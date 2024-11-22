@@ -1,4 +1,4 @@
-import { validateLoginResponse } from "./node-saml";
+import { validatePostResponse } from "../saml/node-saml.js";
 // import { validateLoginResponse } from "./saml2js";
 
 const loginBody = {
@@ -483,4 +483,4 @@ PC9zYW1scDpSZXNwb25zZT4=
 `,
 };
 
-console.log(await validateLoginResponse(loginBody));
+console.log(await validatePostResponse(loginBody));

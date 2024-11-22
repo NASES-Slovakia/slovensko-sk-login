@@ -1,5 +1,5 @@
-import { validateRedirectResponse } from "./node-saml.js";
-import { printSamlRequestUrl } from "./utils.js";
+import { validateRedirectResponse } from "../saml/node-saml.js";
+import { printSamlRequestUrl } from "../utils.js";
 
 const url = new URL(
   // "https://localhost.dev:3001/auth/saml/logout?SAMLResponse=hVNdb9owFP0rkfdM7CSkpRah2kZBSLTaClRdXyZj34C3xI5yHQL%2Ffg4d%2FZBW9mT5%2Bpx7fI6vh9f7sgh2UKO2JiNRyEgARlqlzSYjq%2BWkNyABOmGUKKyBjBwAyfVoiKIsKj63G9u4e8DKGoTAtzLIFWpP3TpXcUrbtg3bJLT1hsaMMcquqEd1kE%2FkL97LfQCPKOt3cI94QXfCGWlqw61AjdyIEpA7yRefb%2Bc8DhkXiFA7b%2BctpTrPqWrrrLTFibJPGfsvI9eFLwrnar1uHPBHT3ppgPpDU4%2B384XcQil62nTRSiDBbJwRrXoq7X9v73DaRjdPs9lNcj9dR63Q%2BY%2F14YvaT5vVt0n6a7Eae4I5xb60GfkJLB%2FIyyS6uIyTWKUyzX1Fyn4%2Fkes1pBd%2BVRCpnAQPp7eOu7eeITYwO17D%2BRKL%2B70o6sXxkg14dMVZ%2FESCMaDTRrgjq%2FOE3lRhpSi2Fl2oYMeTzpdo3JZ2YfvDbi7I85jwo0YdTGxdCnc%2B1a7iY8iPUD8ZTrsDGZ00q1pvC4FgNIRNtcNc78ON3YX4m1pR0hzUkL5RPE3pwgnX4PvdV6sgeBBFA%2BcvhEc0XzRSAiKho2eF16b0Xz9h9Ac%3D&SigAlg=http%3A%2F%2Fwww.w3.org%2F2001%2F04%2Fxmldsig-more%23rsa-sha256&Signature=coXQX8qT0mfDkr%2FjPZpW7PhLcawMN8DWNEuB5IlGuv9FDZmrDWOUKJ2J0MDcPCxGpjBqcpyfZ%2F5T%2BnW0mE9Jad%2FIAE%2FOE4QVWGxCmd2YIkyZclZLxfnDKMFY8HGmaiCkZDV9WNw%2BDOdm3XhMc8RPM1qrR8gbHfOr9k3Ez7l%2F63fK1tMpuJ3qFKd2d9eriEhmEXThOCSgW7yc7QV9pwl3cwKuvy8kjygiX7ioeDINWcO9wMDqC7cx5GLsXJHAx4k0IAyysAaRRux1P2sJwEKN%2FX%2B%2BtP%2F1V8ZOekc9WlkwBsYU20frmrGwdY0U5mH%2FD2o2fHQ5DH1oMrKCMZhiKxKH8w%3D%3D"

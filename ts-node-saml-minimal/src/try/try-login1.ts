@@ -1,7 +1,7 @@
 // import { samlifyGetLoginUrl } from "./samlify";
 // samlifyGetLoginUrl();
 
-import { getLoginUrl } from "./node-saml";
+import { getLoginUrl } from "../saml/node-saml.js";
 // import { getLoginUrl } from "./saml2js";
 
 const url = await getLoginUrl();

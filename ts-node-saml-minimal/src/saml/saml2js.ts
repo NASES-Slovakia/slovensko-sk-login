@@ -1,6 +1,9 @@
+/**
+ * requires `saml2-js @types/saml2-js` npm packages
+ */
 import saml2js from "saml2-js";
-import { idp_metadata, sp_metadata } from "./metadata.js";
-import { awaitable, pemWrap, printSamlRequestUrl } from "./utils.js";
+import { idp_metadata, sp_metadata } from "../metadata.js";
+import { pemWrap, printSamlRequestUrl } from "../utils.js";
 import zlib from "zlib";
 
 const idp = new saml2js.IdentityProvider({
@@ -26,26 +29,6 @@ const sep = new saml2js.ServiceProvider({
   sign_get_request: true,
   notbefore_skew: 30,
 });
-
-console.log({ idp, sep });
-// console.log(sep.create_metadata());
-
-// fun((err, login_url, request_id) => {
-//   if (err) {
-//     console.error(err);
-//     return;
-//   }
-//   console.log(login_url);
-// });
-
-// sep.create_login_request_url(idp, {}, (err, login_url, request_id) => {
-//   if (err) {
-//     console.error(err);
-//     return;
-//   }
-//   console.log(login_url);
-// });
-///////
 
 /**
  *

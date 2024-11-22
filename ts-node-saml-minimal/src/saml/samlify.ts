@@ -1,13 +1,15 @@
+/**
+ * requires `samlify` npm package
+ */
 import fs from "fs";
 import saml from "samlify";
 import {
   PATH_IDP_METADATA,
   PATH_SP_METADATA,
-  sp_metadata,
   UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY,
   UPVS_SSO_SP_SIGNING_PRIVATE_KEY,
-} from "./metadata";
-import { pemWrap, printLoginUrl, printSamlRequest } from "./utils";
+} from "../metadata.js";
+import { pemWrap, printSamlRequest, printSamlRequestUrl } from "../utils.js";
 
 export const service_provider = saml.ServiceProvider({
   metadata: fs.readFileSync(PATH_SP_METADATA, "utf8"),
@@ -38,7 +40,7 @@ export function samlifyGetLoginUrl() {
   if (signatureInUrl) {
     req = service_provider.createLoginRequest(identity_provider, "redirect");
     console.log(req);
-    printLoginUrl(req.context);
+    printSamlRequestUrl(req.context);
   } else {
     req = service_provider.createLoginRequest(identity_provider, "post");
     console.log(req);

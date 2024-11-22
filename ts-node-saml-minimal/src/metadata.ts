@@ -1,18 +1,11 @@
 import fs from "fs";
 import path from "path";
 import dotenv from "dotenv"; // we use dotenv because of multiline values
-import { assertIsDefined, __dirname } from "./utils";
+import { __dirname } from "./utils.js";
 import { XMLParser } from "fast-xml-parser";
 dotenv.config({
   path: ".env.development",
 });
-
-function cleanCert(cert: string) {
-  return cert
-    .replace(/[\n\r\t ]/g, "")
-    .replace(/-----BEGIN CERTIFICATE-----/, "")
-    .replace(/-----END CERTIFICATE-----/, "");
-}
 
 // Load environment variables
 export const SP_METADATA_PATH = assertIsDefined(
@@ -50,7 +43,6 @@ function readXml(fp: string) {
   return result;
 }
 
-//read xmlData your own
 const sp_xml = readXml(PATH_SP_METADATA);
 export const sp_metadata = {
   entity_id: sp_xml["EntityDescriptor"]["@_entityID"],
@@ -65,13 +57,13 @@ export const sp_metadata = {
     ],
   sigining_cert: cleanCert(
     sp_xml["EntityDescriptor"]["SPSSODescriptor"]["KeyDescriptor"].find(
-      (x) => x["@_use"] === "signing"
+      (x: any) => x["@_use"] === "signing"
     )?.["KeyInfo"]["X509Data"]["X509Certificate"]
   ),
   signing_private_key: cleanCert(UPVS_SSO_SP_SIGNING_PRIVATE_KEY),
   encryption_cert: cleanCert(
     sp_xml["EntityDescriptor"]["SPSSODescriptor"]["KeyDescriptor"].find(
-      (x) => x["@_use"] === "encryption"
+      (x: any) => x["@_use"] === "encryption"
     )?.["KeyInfo"]["X509Data"]["X509Certificate"]
   ),
   encryption_private_key: cleanCert(UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY),
@@ -91,22 +83,39 @@ export const idp_metadata = {
   x509_signing_cert: cleanCert(
     idp_xml["md:EntityDescriptor"]["md:IDPSSODescriptor"][
       "md:KeyDescriptor"
-    ].find((key) => key["@_use"] === "signing")?.["dsig:KeyInfo"][
+    ].find((key: any) => key["@_use"] === "signing")?.["dsig:KeyInfo"][
       "dsig:X509Data"
     ]["dsig:X509Certificate"]
   ),
   x509_encryption_cert: cleanCert(
     idp_xml["md:EntityDescriptor"]["md:IDPSSODescriptor"][
       "md:KeyDescriptor"
-    ].find((key) => key["@_use"] === "encryption")?.["dsig:KeyInfo"][
+    ].find((key: any) => key["@_use"] === "encryption")?.["dsig:KeyInfo"][
       "dsig:X509Data"
     ]["dsig:X509Certificate"]
   ),
 };
-// console.dir(
-//   {
-//     idp_metadata,
-//     sp_metadata,
-//   },
-//   { depth: null }
-// );
+
+/**
+ * Helper function to remove whitespace and header/footer from a certificate
+ */
+function cleanCert(cert: string) {
+  return cert
+    .replace(/[\n\r\t ]/g, "")
+    .replace(/-----BEGIN CERTIFICATE-----/, "")
+    .replace(/-----END CERTIFICATE-----/, "");
+}
+
+/**
+ * Helper function to assert that a value is defined
+ */
+function assertIsDefined<T>(val: T, failureMessage?: string): NonNullable<T> {
+  if (val === undefined || val === null) {
+    if (failureMessage) {
+      console.log({ val });
+      throw new Error(failureMessage);
+    }
+    throw new Error(`Expected 'val' to be defined, but received ${val}`);
+  }
+  return val;
+}
