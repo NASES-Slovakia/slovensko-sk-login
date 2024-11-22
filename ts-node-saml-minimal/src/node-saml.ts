@@ -1,12 +1,7 @@
-import { SAML } from "@node-saml/node-saml";
-import {
-  idp_metadata,
-  sp_metadata,
-  UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY,
-  UPVS_SSO_SP_SIGNING_PRIVATE_KEY,
-} from "./metadata";
-import { pemWrap } from "./utils";
-
+import { Profile, SAML } from "@node-saml/node-saml";
+import { idp_metadata, sp_metadata } from "./metadata.js";
+import { pemWrap, printSamlRequestUrl } from "./utils.js";
+// export { Profile } from "@node-saml/node-saml";
 
 // const metadata = generateServiceProviderMetadata({
 //   issuer: "https://example.com",
@@ -19,18 +14,23 @@ import { pemWrap } from "./utils";
 export const saml = new SAML({
   // Our url where we will receive SAML response
   callbackUrl: sp_metadata.assertion_consumer_service_url,
+  logoutUrl: idp_metadata.single_logout_service_url,
+  acceptedClockSkewMs: 1000,
 
   // the IDP's public signing certificate used to validate the signatures of the incoming SAML Responses,
   // Important, provided public key MUST always be in PEM format!
-  idpCert: idp_metadata.x509_signing_cert,
+  idpCert: [
+    pemWrap("CERTIFICATE", idp_metadata.x509_signing_cert),
+    pemWrap("CERTIFICATE", idp_metadata.x509_encryption_cert),
+  ],
 
   // optional private key that will be used to attempt to decrypt any encrypted assertions that are received
-  decryptionPvk: pemWrap("PRIVATE KEY", UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY),
+  decryptionPvk: pemWrap("PRIVATE KEY", sp_metadata.encryption_private_key),
 
   // the service provider's public signing certificate used to embed in AuthnRequest in order for the IDP to validate the signatures of the incoming SAML Request
   publicCert: pemWrap("CERTIFICATE", sp_metadata.sigining_cert),
   // To sign authentication requests,
-  privateKey: pemWrap("PRIVATE KEY", UPVS_SSO_SP_SIGNING_PRIVATE_KEY),
+  privateKey: pemWrap("PRIVATE KEY", sp_metadata.signing_private_key),
 
   // "-----BEGIN PRIVATE KEY-----\n" +
   // UPVS_SSO_SP_SIGNING_PRIVATE_KEY +
@@ -38,7 +38,7 @@ export const saml = new SAML({
 
   passive: false,
   forceAuthn: false,
-  //   signMetadata: true,
+  // signMetadata: true,
 
   // Our unique url
   issuer: sp_metadata.entity_id,
@@ -46,13 +46,14 @@ export const saml = new SAML({
   entryPoint: idp_metadata.single_sign_on_service_url,
   // racComparison: "minimum",
 
-  authnRequestBinding: "HTTP-Redirect",
+  authnRequestBinding: "HTTP-POST",
 
-  wantAuthnResponseSigned: false,
-  wantAssertionsSigned: false,
+  wantAuthnResponseSigned: true,
+  wantAssertionsSigned: true,
   allowCreate: true,
-  signatureAlgorithm: "sha512",
-  digestAlgorithm: "sha512",
+  signatureAlgorithm: "sha256",
+  digestAlgorithm: "sha256",
+  // signMetadata: false,
 
   // validateInResponseTo: ValidateInResponseTo.ifPresent,
   identifierFormat: "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
@@ -70,7 +71,7 @@ console.log({
   ),
 });
 
-export async function getLoginUrl() {
+export async function getLoginUrl(): Promise<string> {
   const message = await saml.getAuthorizeMessageAsync("", samlHostUnused, {});
   const params = new URLSearchParams();
   const req = message.SAMLRequest;
@@ -79,13 +80,39 @@ export async function getLoginUrl() {
   }
   console.log({ req });
 
-  params.append("SAMLRequest", req.toString());
-  return idp_metadata.single_sign_on_service_url + "?" + params.toString();
+  // params.append("SAMLRequest", req.toString());
+  // return idp_metadata.single_sign_on_service_url + "?" + params.toString();
 
-  // return saml.getAuthorizeUrlAsync("", samlHostUnused, {});
+  const login_url = await saml.getAuthorizeUrlAsync("", samlHostUnused, {});
+  console.log({ login_url });
+  printSamlRequestUrl(login_url);
+  return login_url;
+}
+
+export async function getIdpLogoutUrl(obj?: {
+  profile: Profile;
+}): Promise<string> {
+  if (!obj) {
+    return "";
+  }
+  // TODO
+  return saml.getLogoutUrlAsync(obj.profile, "", {});
+}
+
+export async function validateRedirectResponse(
+  query: Record<string, string>,
+  originalQuery: string
+) {
+  console.dir({ originalQuery, query });
+  return saml.validateRedirectAsync(query, originalQuery);
+}
+
+export async function validatePostResponse(body: Record<string, string>) {
+  return saml.validatePostResponseAsync(body);
 }
 
 export async function getLoginForm() {
+  return "";
   return saml.getAuthorizeFormAsync("", samlHostUnused, {});
 }
 

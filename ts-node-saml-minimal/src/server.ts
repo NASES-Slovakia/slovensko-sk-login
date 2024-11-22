@@ -1,9 +1,43 @@
 import Fastify from "fastify";
 import fastifyFormbody from "@fastify/formbody";
-import fs from "fs";
-import path from "path";
-import { __dirname } from "./utils";
-import { getLoginForm, getLoginUrl, validateLoginResponse } from "./saml2js";
+import { fastifySession } from "@fastify/session";
+import { fastifyCookie } from "@fastify/cookie";
+import * as fs from "fs";
+import * as path from "path";
+import { z } from "zod";
+import { __dirname } from "./utils.js";
+// import {
+//   getLoginForm,
+//   getLoginUrl,
+//   getLogoutUrl,
+//   validateLoginResponse,
+//   validateLogoutResponse,
+// } from "./saml2js";
+
+import {
+  getLoginForm,
+  getLoginUrl,
+  getIdpLogoutUrl,
+  validatePostResponse,
+  validateRedirectResponse,
+} from "./node-saml.js";
+
+interface Profile {
+  issuer: string;
+  nameID: string;
+  nameIDFormat: string;
+  [key: string]: unknown;
+}
+
+declare module "fastify" {
+  interface Session {
+    saml: { profile: Profile | null; loggedOut?: boolean };
+  }
+}
+
+const ZCallbackRequestBody = z.object({
+  SAMLResponse: z.string(),
+});
 
 // import { saml, getLoginUrl, getLoginForm } from "./node-saml";
 
@@ -16,11 +50,16 @@ const fastify = Fastify({
 });
 
 fastify.register(fastifyFormbody);
+fastify.register(fastifyCookie, {
+  secret: process.env.COOKIE_SECRET || "set 32 char secret",
+});
+fastify.register(fastifySession, {
+  secret: process.env.SESSION_SECRET || "set 32 char secret",
+});
 
 // Declare a route
-fastify.get("/", async function handler(request, reply) {
+fastify.get("/", async function handler(request: any, reply: any) {
   reply.type("text/html");
-  const form = await getLoginForm();
   return `
     <html>
         <head>
@@ -28,66 +67,80 @@ fastify.get("/", async function handler(request, reply) {
         </head>
         <body>
             <h1>Test</h1>
-            <ul>
-            <li><a href="${await getLoginUrl()}">Login</a></li>
-            <li><a href="/login">Login using POST Form</a></li>
-            <form id="saml-form" method="post" action="${
-              form.entityEndpoint
-            }" autocomplete="off">
-                <input type="hidden" name="SAMLRequest" value="${
-                  form.context
-                }" />
-                <input type="submit" value="Login" />
-            </form>
-            <li><a href="/logout">Logout</a></li>
+            ${
+              !request.session?.saml?.profile ||
+              request.session?.saml?.loggedOut
+                ? `<a href="${await getLoginUrl()}">Login</a>`
+                : `<a href="${await getIdpLogoutUrl({
+                    profile: request.session.saml.profile,
+                  })}">Logout</a>`
+            }
             </ul>
+            <h2>Session</h2>
+            <pre>
+            ${JSON.stringify(request.session.saml, null, 3)}
+            </pre>
         </body>
     `;
 });
 
-fastify.get("/login", async function handler(request, reply) {
-  // reply.type("text/html");
-  // return getLoginForm();
+// fastify.get("/login", async function handler(request, reply) {
+//   // reply.type("text/html");
+//   // return getLoginForm();
 
-  // redirect to idp
-  return reply.redirect(await getLoginUrl());
-});
-
-// fastify.get("/logout", async function handler(request, reply) {
-//   return reply.redirect(await getLogoutUrl());
+//   // redirect to idp
+//   return reply.redirect(await getLoginUrl());
 // });
 
-fastify.get("/upvs/logout", async function handler(request, reply) {
-  return "?";
+const getQueryFromUrl = (url: string) => {
+  const u = new URL(url, "https://localhost.dev");
+  return u.search.substring(1); // remove leading `?`
+};
+
+fastify.get("/upvs/logout", async function handler(request: any, reply: any) {
+  console.log("UPVS logout", request);
+  console.log("UPVS logout query", request.query);
+  const result = await validateRedirectResponse(
+    request.query as any,
+    getQueryFromUrl(request.url)
+  );
+
+  request.session.saml = result;
+
+  // Redirect to idp?
+  return result;
 });
 
-fastify.get("/auth/saml/logout", async function handler(request, reply) {
-  return "?";
-});
+fastify.get(
+  "/auth/saml/logout",
+  async function handler(request: any, reply: any) {
+    const result = await validateRedirectResponse(
+      request.query as any,
+      getQueryFromUrl(request.url)
+    );
+    request.session.saml = result;
 
-fastify.post("/auth/saml/callback", async function handler(request, reply) {
-  console.log("SAML callback", request.query);
-  console.log("SAML callback body", request.body);
+    // Redirect to idp?
+    reply.redirect("/");
+  }
+);
 
-  const res = await validateLoginResponse(request.body as any);
-  reply.type("text/html");
-  return `
-    <html>
-        <head>
-            <title>Test</title>
-        </head>
-        <body>
-            <h1>Response</h1>
-            <code>
-            ${res}
-            </code>
-            <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/logout">Logout</a></li>
-            </ul>
-        </body>
-    `;
-});
+fastify.post(
+  "/auth/saml/callback",
+  async function handler(request: any, reply: any) {
+    console.log("SAML callback", request.query);
+    console.log("SAML callback body", request.body);
+
+    const requestBody = ZCallbackRequestBody.parse(request.body); // validate request body
+
+    const result = await validatePostResponse(requestBody);
+    request.session.saml = result;
+
+    // redirect instead of returning the result ?
+    reply.redirect("/");
+    return;
+  }
+);
 
 // Run the server!
 try {

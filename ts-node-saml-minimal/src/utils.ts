@@ -22,7 +22,7 @@ export function assertIsDefined<T>(
 export function awaitable(fn: Function) {
   return function (...args: any[]) {
     return new Promise((resolve, reject) => {
-      fn(...args, (err: any, ...args) => {
+      fn(...args, (err: any, ...args: unknown[]) => {
         if (err) {
           reject(err);
         } else {
@@ -33,7 +33,7 @@ export function awaitable(fn: Function) {
   };
 }
 
-export async function printLoginUrl(login_url: string) {
+export async function printSamlRequestUrl(login_url: string) {
   const url = new URL(login_url);
   const samlRequest = url.searchParams.get("SAMLRequest");
   console.log({ login_url });
@@ -45,10 +45,10 @@ export async function printSamlRequest(samlRequest: string | null) {
     throw new Error("SAMLRequest not found in login_url");
   }
   const buf = Buffer.from(samlRequest, "base64");
-  // console.log([buf[0], buf[1]]);
+  console.log([buf[0], buf[1]]);
   let samlRequestDecoded;
   // detect if the SAMLRequest is zlib compressed
-  if (buf[0] === 125 && buf[1] === 146) {
+  if (buf[0] === 125 || buf[0] === 157) {
     samlRequestDecoded = await new Promise((resolve, reject) => {
       zlib.inflateRaw(buf, (err, buffer) => {
         if (err) {
@@ -68,5 +68,13 @@ export async function printSamlRequest(samlRequest: string | null) {
 }
 
 export function pemWrap(header: string, body: string) {
-  return `-----BEGIN ${header}-----\n${body}\n-----END ${header}-----`;
+  const bodyCopy = body.split(String.raw`\n`).join("\n");
+  let lines: string[] = [];
+  for (let i = 0; i < body.length; i += 64) {
+    lines.push(bodyCopy.slice(i, i + 64));
+  }
+  const wrappedBody = lines.join("\n");
+  const output = `-----BEGIN ${header}-----\n${wrappedBody}\n-----END ${header}-----`;
+  console.log(output);
+  return output;
 }

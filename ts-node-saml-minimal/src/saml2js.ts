@@ -1,6 +1,6 @@
 import saml2js from "saml2-js";
-import { idp_metadata, sp_metadata } from "./metadata";
-import { awaitable, pemWrap, printLoginUrl } from "./utils";
+import { idp_metadata, sp_metadata } from "./metadata.js";
+import { awaitable, pemWrap, printSamlRequestUrl } from "./utils.js";
 import zlib from "zlib";
 
 const idp = new saml2js.IdentityProvider({
@@ -29,14 +29,6 @@ const sep = new saml2js.ServiceProvider({
 
 console.log({ idp, sep });
 // console.log(sep.create_metadata());
-
-function create_login_request_url_bound(fn) {
-  return sep.create_login_request_url(idp, {}, fn);
-}
-
-function create_logout_request_url_bound(fn) {
-  return sep.create_logout_request_url(idp, {}, fn);
-}
 
 // fun((err, login_url, request_id) => {
 //   if (err) {
@@ -71,26 +63,39 @@ export async function getLoginUrl(): Promise<string> {
         return reject(err);
       }
       console.log(login_url);
-      printLoginUrl(login_url);
+      printSamlRequestUrl(login_url);
       resolve(login_url);
     });
   });
 }
 
-export async function getLogoutUrl() {
-  const [logout_url, request_id] = (await awaitable(
-    create_logout_request_url_bound
-  )()) as unknown as [string, string];
-
-  console.log({ logout_url, request_id });
-
-  return logout_url;
+export async function getLogoutUrl(name_id: string): Promise<string> {
+  console.log("logout", { name_id });
+  return new Promise((resolve, reject) => {
+    sep.create_logout_request_url(
+      idp,
+      {
+        name_id,
+        sign_get_request: true,
+        allow_unencrypted_assertion: true,
+      },
+      (err, logout_url, request_id) => {
+        if (err) {
+          console.error(err);
+          return reject(err);
+        }
+        console.log({ logout_url });
+        printSamlRequestUrl(logout_url);
+        resolve(logout_url);
+      }
+    );
+  });
 }
 
-export async function validateLoginResponse(request_body: {
-  SAMLResponse: string;
-  SAMLRequest: string;
-}) {
+export async function validatePostResponse(request_body: {
+  SAMLResponse?: string;
+  SAMLRequest?: string;
+}): Promise<object> {
   //   const resp = await awaitable(sep.redirect_assert)(idp, {});
   //   console.log({ resp });
 
@@ -107,10 +112,10 @@ export async function validateLoginResponse(request_body: {
         if (err) {
           console.dir(err, { depth: null });
 
-          return resolve(JSON.stringify(err, null, 2));
+          return reject(JSON.stringify(err, null, 2));
         }
         console.log({ resp });
-        resolve(JSON.stringify(resp.user, null, 2));
+        resolve(resp.user);
       }
     );
   });
@@ -130,6 +135,30 @@ export async function validateLoginResponse(request_body: {
   //       console.log({ resp });
   //     }
   //   );
+}
+
+export async function validateRedirectResponse(
+  query: Record<string, string>,
+  originalQuery: string
+) {
+  return new Promise((resolve, reject) => {
+    sep.redirect_assert(
+      idp,
+      {
+        request_body: query,
+        allow_unencrypted_assertion: true,
+      },
+      (err, resp) => {
+        console.log("redirect_assert");
+        if (err) {
+          console.error(err);
+          return reject(err);
+        }
+        console.log({ resp });
+        resolve(resp.user);
+      }
+    );
+  });
 }
 
 // validateLoginResponse().then(() => {
@@ -173,8 +202,19 @@ export function getLoginForm() {
   const url = new URL(idp_metadata.single_sign_on_service_url);
   url.searchParams.set("SAMLRequest", Buffer.from(xml).toString("base64"));
   console.log(url.toString());
-  return {
+  const form = {
     entityEndpoint: idp_metadata.single_sign_on_service_url,
     context: Buffer.from(zlib.deflateRawSync(xml)).toString("base64"),
   };
+
+  return `<form id="saml-form" method="post" action="${form.entityEndpoint}" autocomplete="off">
+                <input type="hidden" name="SAMLRequest" value="${form.context}" />
+                <input type="submit" value="Login" />
+            </form>`;
+}
+
+declare module "saml2-js" {
+  interface ServiceProvider {
+    create_authn_request_xml(idp: IdentityProvider, options: any): string;
+  }
 }
