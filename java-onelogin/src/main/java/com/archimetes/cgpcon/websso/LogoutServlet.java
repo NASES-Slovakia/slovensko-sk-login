@@ -1,10 +1,7 @@
 package com.archimetes.cgpcon.websso;
 
 import com.onelogin.saml2.Auth;
-import com.onelogin.saml2.exception.Error;
-import com.onelogin.saml2.exception.SettingsException;
-import com.onelogin.saml2.exception.XMLEntityException;
-import com.onelogin.saml2.settings.SettingsBuilder;
+import com.onelogin.saml2.logout.LogoutRequestParams;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Properties;
 
 public class LogoutServlet extends HttpServlet {
     @Override
@@ -41,7 +37,8 @@ public class LogoutServlet extends HttpServlet {
             if (session.getAttribute("sessionIndex") != null) {
                 sessionIndex = session.getAttribute("sessionIndex").toString();
             }
-            auth.logout(request.getParameter("RelayState"), nameId, sessionIndex, nameIdFormat, nameidNameQualifier, nameidSPNameQualifier);
+            LogoutRequestParams logoutRequestParams = new LogoutRequestParams(sessionIndex, nameId, nameIdFormat, nameidNameQualifier, nameidSPNameQualifier);
+            auth.logout(request.getParameter("RelayState"), logoutRequestParams);
             return;
         } catch (Exception e) {
             e.printStackTrace();
