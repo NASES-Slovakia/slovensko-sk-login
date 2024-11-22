@@ -4,15 +4,8 @@ import { fastifySession } from "@fastify/session";
 import { fastifyCookie } from "@fastify/cookie";
 import * as fs from "fs";
 import * as path from "path";
-import { z } from "zod";
+
 import { __dirname, getQueryFromUrl } from "./utils.js";
-// import {
-//   getLoginForm,
-//   getLoginUrl,
-//   getLogoutUrl,
-//   validateLoginResponse,
-//   validateLogoutResponse,
-// } from "./saml2js";
 
 import {
   getIdpLoginUrl,
@@ -21,44 +14,30 @@ import {
   validateRedirectResponse,
   getLogoutReplyUrl,
 } from "./saml/node-saml.js";
+import { ZCallbackRequestBody, ZLogoutQuery } from "./interfaces.js";
 
-interface Profile {
-  issuer: string;
-  nameID: string;
-  nameIDFormat: string;
-  [key: string]: unknown;
-}
-
-declare module "fastify" {
-  interface Session {
-    saml: { profile: Profile | null; loggedOut?: boolean };
-  }
-}
-
-const ZCallbackRequestBody = z
-  .object({
-    SAMLResponse: z.string(),
-  })
-  .catchall(z.string());
-
-const ZLogoutQuery = z
-  .object({
-    SAMLRequest: z.string().optional(),
-    SAMLResponse: z.string().optional(),
-  })
-  .catchall(z.string());
-
-// import { saml, getLoginUrl, getLoginForm } from "./node-saml";
+// or
+// import {
+//   getLoginForm,
+//   getLoginUrl,
+//   getLogoutUrl,
+//   validateLoginResponse,
+//   validateLogoutResponse,
+// } from "./saml2js";
 
 const fastify = Fastify({
   logger: true,
+  // Enable https
   https: {
     key: fs.readFileSync(path.join(__dirname, "../localhost.dev-key.pem")),
     cert: fs.readFileSync(path.join(__dirname, "../localhost.dev.pem")),
   },
 });
 
+// Enable parsing form encoded body
 fastify.register(fastifyFormbody);
+
+// Enable session and cookie handling
 fastify.register(fastifyCookie, {
   secret: process.env.COOKIE_SECRET || "set 32 char secret",
 });
@@ -66,7 +45,9 @@ fastify.register(fastifySession, {
   secret: process.env.SESSION_SECRET || "set 32 char secret",
 });
 
-// Declare a route
+//---------------------------------------------------------------------
+// Routes
+//---------------------------------------------------------------------
 fastify.get("/", async function handler(request: any, reply: any) {
   reply.type("text/html");
   return `
@@ -92,7 +73,6 @@ fastify.get("/", async function handler(request: any, reply: any) {
         </body>
     `;
 });
-
 
 fastify.get("/upvs/logout", async function handler(request: any, reply: any) {
   console.log("UPVS logout query", request.query);
@@ -172,13 +152,14 @@ fastify.post(
     const result = await validatePostResponse(requestBody);
     request.session.saml = result;
 
-    // redirect instead of returning the result ?
     reply.redirect("/");
     return;
   }
 );
 
-// Run the server!
+//---------------------------------------------------------------------
+// Run the server
+//---------------------------------------------------------------------
 try {
   console.log("Starting server on \n\n https://localhost.dev:3001/\n\n");
   await fastify.listen({ port: 3001 });

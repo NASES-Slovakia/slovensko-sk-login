@@ -56,11 +56,8 @@ export function pemWrap(header: string, body: string) {
   }
   const wrappedBody = lines.join("\n");
   const output = `-----BEGIN ${header}-----\n${wrappedBody}\n-----END ${header}-----`;
-  console.log(output);
   return output;
 }
-
-
 
 export function getQueryFromUrl(url: string) {
   const u = new URL(url, "https://localhost.dev:3001");

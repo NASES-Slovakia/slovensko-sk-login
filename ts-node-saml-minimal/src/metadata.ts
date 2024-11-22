@@ -30,18 +30,7 @@ export const PATH_IDP_METADATA = path.resolve(
   `../security/upvs_${UPVS_ENV}.metadata.xml`
 );
 
-function readXml(fp: string) {
-  const parser = new XMLParser({
-    attributeNamePrefix: "@_",
-    parseAttributeValue: true,
-    ignoreAttributes: false,
-  });
-  const f = fs.readFileSync(fp, "utf8");
-  f.replace(/[\n\r\t]/g, "");
-  let result = parser.parse(f);
-
-  return result;
-}
+// TODO improve querying of metadata
 
 const sp_xml = readXml(PATH_SP_METADATA);
 export const sp_metadata = {
@@ -95,6 +84,22 @@ export const idp_metadata = {
     ]["dsig:X509Certificate"]
   ),
 };
+
+/**
+ * Helper function to read an XML file and parse it into an object
+ */
+function readXml(fp: string) {
+  const parser = new XMLParser({
+    attributeNamePrefix: "@_",
+    parseAttributeValue: true,
+    ignoreAttributes: false,
+  });
+  const f = fs.readFileSync(fp, "utf8");
+  f.replace(/[\n\r\t]/g, "");
+  let result = parser.parse(f);
+
+  return result;
+}
 
 /**
  * Helper function to remove whitespace and header/footer from a certificate
