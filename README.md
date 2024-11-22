@@ -6,6 +6,10 @@ Toto úložisko obsahuje ukážkové implementácie prihlasovania pomocou sloven
 
 **UPOZORNENIE: Pre produkčné použitie je potrebné prejst aj pomerne zložitým formálnym procesom integrácie s NASES. Detaily tohto procesu nájdete na [partner framework portáli](https://www.nases.gov.sk/sluzby/sluzby-pre-po-a-ovm/integracie).**
 
+
+https://github.com/user-attachments/assets/8d57c805-ff56-4cef-84b0-aa5a0abee3ac
+
+
 ## Predpoklady
 1. **Prístup do testovacieho prostredia slovensko.sk**  
   Na to, aby ste mohli začať testovať prihlasovanie cez testovacie identity slovensko.sk budete potrebovať prístup na testovacie prostredie slovensko.sk (https://portal.upvsfixnew.gov.sk).  
@@ -23,11 +27,6 @@ Toto úložisko obsahuje ukážkové implementácie prihlasovania pomocou sloven
   Ak chcete využívať inú adresu, je potrebné si zaregistrovať vlastné metadáta. Návod k registrácii a požiadavkam na SP metadáta: https://www.slovensko.sk/_img/CMS4/Navody/navod_poskytovatelia_sluzieb.pdf    
 
 ## Ukážkové implementácie
-
-
-https://github.com/user-attachments/assets/8d57c805-ff56-4cef-84b0-aa5a0abee3ac
-
-
 - [Ruby on Rails](/ruby-on-rails)
 
 ## Odporučania a upozornenia pre vlastnú implementáciu
