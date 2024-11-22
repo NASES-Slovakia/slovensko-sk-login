@@ -1,26 +1,26 @@
-# ts-node-saml-minimal - minimalistic SAML SP in Node.js
+# ts-node-saml-minimal - ukážka UPVS SAML SP pre Node.js
 
 v tomto momente funguje iba `@node-saml/node-saml` implementácia, ale plán je pridať aj `saml2-js` a `samlify` implementácie
 
 ## Setup
 
-1. add `127.0.0.1 localhost.dev` to `/etc/hosts`
-2. install mkcert `brew install mkcert` (or `choco install mkcert`) https://github.com/FiloSottile/mkcert#installation
-3. run `mkcert -install` - install root certificate
-4. run `mkcert localhost.dev` - generate certificate for localhost.dev
+1. pridaj `127.0.0.1 localhost.dev` do `/etc/hosts`
+2. nainštaluj mkcert `brew install mkcert` (alebo `choco install mkcert`), viac na https://github.com/FiloSottile/mkcert#installation
+3. run `mkcert -install` - nainštaluje root CA do systému
+4. run `mkcert localhost.dev` - vygeneruje certifikát pre `localhost.dev`
 
 ## Run
 
-1. `npm install`
-2. `npm run dev`
-3. open https://localhost.dev:3001/
+1. `npm install`, nainštaluje závislosti
+2. `npm run dev`, spustí server
+3. otvor https://localhost.dev:3001/
 
 ## Dictionary
 
-- IdP - Identity Provider (ÚPVS)
-- SP - Service Provider (táto aplikácia)
-- SSO - Single Sign-On
-- SLO - Single Log-Out
+- IdP - Identity Provider (ÚPVS), poskytovateľ identity
+- SP - Service Provider (táto aplikácia), poskytovateľ služby, konzument identity
+- SSO - Single Sign-On, jedno prihlásenie na viaceré služby
+- SLO - Single Log-Out, jedno odhlásenie zo všetkých služieb
 
 ## Environment variables
 
@@ -41,22 +41,25 @@ v tomto momente funguje iba `@node-saml/node-saml` implementácia, ale plán je 
 | `../security/upvs_{UPVS_ENV}.metadata.xml`                                                    | Metadáta IdP<sup>1</sup> |
 | `SP_METADATA_PATH`, napr. `../security/localhost_dev_two_keys/localhost_dev_fix.metadata.xml` | Metadáta SP<sup>1</sup>  |
 
-## Repository structure
+## Štruktúra repozitára
 
-- `src` - source code
-  - `metadata.ts` - metadata for IdP and SP
-  - `server.ts` - main server file
-  - `saml` - SAML related code, implemented in multiple libraries (`node-saml`, `saml2-js`, `samlify`)
-  - `try` - small examples to try out parts of workflow when debugging
-  - `utils.ts` - utility functions
+- `src`
+    - `metadata.ts` - metadáta pre IdP a SP
+    - `server.ts` - hlavný súbor servera
+    - `saml` - kód súvisiaci so SAML, implementovaný v rôznych knižniciach (`node-saml`, `saml2-js`, `samlify`)
+    - `try` - malé príklady na vyskúšanie častí pracovného postupu pri ladení
+    - `utils.ts` - pomocné funkcie
+- `localhost.dev-key.pem` - privátny kľúč pre localhost.dev
+- `localhost.dev.pem` - verejný kľúč pre localhost.dev
 
 ## Routes
 
-- `/` - home page, shows current user info (session)
-- `/auth/saml/callback` - callback endpoint, registered at IdP
-- `/auth/saml/logout` - logout callback endpoint, registered at Idp (initiated by SP)
-- `/upvs/logout` - logout endpoint, registered at IdP (initiated by IdP)
+- `/` - domovská stránka, zobrazuje informácie o aktuálnom používateľovi (session)
+- `/auth/saml/callback` - callback endpoint, registrovaný na IdP
+- `/auth/saml/logout` - logout callback endpoint, registrovaný na IdP (iniciovaný SP)
+- `/upvs/logout` - logout endpoint, registrovaný na IdP (iniciovaný IdP)
 
-## References
+## Referencie
+
 
 - https://web.dev/articles/how-to-use-local-https
