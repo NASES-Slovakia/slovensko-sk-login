@@ -1,0 +1,14 @@
+version: '2'
+services:
+  portal:
+    image: tomcat:9.0
+    mem_limit: 500m
+    volumes:
+      - ./bind-mounts/portal/usr/local/tomcat/webapps:/usr/local/tomcat/webapps
+      - ./bind-mounts/portal/usr/local/tomcat/conf/server.xml:/usr/local/tomcat/conf/server.xml
+      - ./bind-mounts/portal/usr/local/tomcat/conf/webssodemo.saml.properties:/usr/local/tomcat/conf/webssodemo.saml.properties
+      - ./bind-mounts/portal/usr/local/tomcat/conf/localhost-rsa.jks:/usr/local/tomcat/conf/localhost-rsa.jks
+    ports:
+      - 3001:3001
+    environment:
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:5005
