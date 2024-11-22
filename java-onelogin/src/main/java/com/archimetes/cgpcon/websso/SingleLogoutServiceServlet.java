@@ -1,9 +1,6 @@
 package com.archimetes.cgpcon.websso;
 
 import com.onelogin.saml2.Auth;
-import com.onelogin.saml2.exception.Error;
-import com.onelogin.saml2.exception.SettingsException;
-import com.onelogin.saml2.settings.SettingsBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Properties;
 
 public class SingleLogoutServiceServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(new Object() {}.getClass().getEnclosingClass());

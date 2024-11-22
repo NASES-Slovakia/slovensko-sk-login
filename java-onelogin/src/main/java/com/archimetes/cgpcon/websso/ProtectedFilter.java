@@ -1,7 +1,6 @@
 package com.archimetes.cgpcon.websso;
 
 import com.onelogin.saml2.Auth;
-import com.onelogin.saml2.exception.Error;
 import com.onelogin.saml2.exception.SettingsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

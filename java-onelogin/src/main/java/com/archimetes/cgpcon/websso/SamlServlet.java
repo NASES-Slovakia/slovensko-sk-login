@@ -1,11 +1,7 @@
 package com.archimetes.cgpcon.websso;
 
 import com.onelogin.saml2.Auth;
-import com.onelogin.saml2.exception.Error;
-import com.onelogin.saml2.exception.SettingsException;
-import com.onelogin.saml2.exception.XMLEntityException;
 import com.onelogin.saml2.servlet.ServletUtils;
-import com.onelogin.saml2.settings.SettingsBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +10,6 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 public class SamlServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(new Object() {}.getClass().getEnclosingClass());
