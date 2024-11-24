@@ -1,13 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Sustainsys.Saml2.AspNetCore2" Version="2.10.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="localhost.pfx" CopyToOutputDirectory="PreserveNewest"/>
+        <Content Include="../../security/upvs_fix.metadata.xml" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
 
 </Project>
