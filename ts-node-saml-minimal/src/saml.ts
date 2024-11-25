@@ -2,8 +2,8 @@
  * requires `@node-saml/node-saml` npm package
  */
 import { Profile, SAML } from "@node-saml/node-saml";
-import { idp_metadata, sp_metadata } from "../metadata.js";
-import { pemWrap, printSamlRequestUrl } from "../utils.js";
+import { idp_metadata, sp_metadata } from "./metadata.js";
+import { pemWrap, printSamlRequestUrl } from "./utils.js";
 
 // Create SAML instance
 export const saml = new SAML({
@@ -128,12 +128,4 @@ export async function getLogoutReplyUrl(
  */
 export async function validatePostResponse(body: Record<string, string>) {
   return saml.validatePostResponseAsync(body);
-}
-
-/**
- *
- * @returns {Promise<string>} HTML page with login form that submits to the SAML server
- */
-export async function getLoginFormHtml() {
-  return saml.getAuthorizeFormAsync("", SAML_HOST_UNUSED_PARAM, {});
 }

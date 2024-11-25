@@ -1,6 +1,6 @@
 # ts-node-saml-minimal - ukážka UPVS SAML SP pre Node.js
 
-v tomto momente funguje iba `@node-saml/node-saml` implementácia, ale plán je pridať aj `saml2-js` a `samlify` implementácie
+Implementácia SAML Service Provider (SP) pre autentifikáciu cez ÚPVS SSO. Použitý je typescript, fastify a `@node-saml/node-salm`.
 
 ## Run
 
@@ -39,9 +39,9 @@ v tomto momente funguje iba `@node-saml/node-saml` implementácia, ale plán je 
 - `src`
   - `metadata.ts` - metadáta pre IdP a SP
   - `server.ts` - hlavný súbor servera
-  - `saml` - kód súvisiaci so SAML, implementovaný v rôznych knižniciach (`node-saml`, `saml2-js`, `samlify`)
-  - `try` - malé príklady na vyskúšanie častí pracovného postupu pri ladení
+  - `saml.ts` - kód súvisiaci so SAML
   - `utils.ts` - pomocné funkcie
+  - `try` - malé príklady na vyskúšanie procesu pri debugovaní
 
 ## Routes
 

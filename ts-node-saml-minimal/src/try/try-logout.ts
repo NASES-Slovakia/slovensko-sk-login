@@ -1,4 +1,4 @@
-import { validateRedirectResponse } from "../saml/node-saml.js";
+import { validateRedirectResponse } from "../saml.js";
 import { printSamlRequestUrl } from "../utils.js";
 
 const url = new URL(

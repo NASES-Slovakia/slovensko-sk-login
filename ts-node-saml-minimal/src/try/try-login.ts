@@ -1,8 +1,9 @@
-// import { samlifyGetLoginUrl } from "./samlify";
-// samlifyGetLoginUrl();
-
-import { getIdpLoginUrl } from "../saml/node-saml.js";
-// import { getLoginUrl } from "./saml2js";
+/**
+ * Try to login to the IDP and print the response.
+ * This is same as if you generated link and clicked it in the browser.
+ * Automates the process of debugging initial setup.
+ */
+import { getIdpLoginUrl } from "../saml.js";
 
 const url = await getIdpLoginUrl();
 console.log("Login URL:", url);

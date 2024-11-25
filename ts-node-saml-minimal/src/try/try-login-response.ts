@@ -1,5 +1,4 @@
-import { validatePostResponse } from "../saml/node-saml.js";
-// import { validateLoginResponse } from "./saml2js";
+import { validatePostResponse } from "../saml.js";
 
 const loginBody = {
   SAMLResponse: `PHNhbWxwOlJlc3BvbnNlIHhtbG5zOnNhbWxwPSJ1cm46b2FzaXM6bmFtZXM6dGM6

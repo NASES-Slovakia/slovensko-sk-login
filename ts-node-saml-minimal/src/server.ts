@@ -13,7 +13,7 @@ import {
   validatePostResponse,
   validateRedirectResponse,
   getLogoutReplyUrl,
-} from "./saml/node-saml.js";
+} from "./saml.js";
 import { ZCallbackRequestBody, ZLogoutQuery } from "./interfaces.js";
 
 const fastify = Fastify({
