@@ -16,21 +16,16 @@ import {
 } from "./saml/node-saml.js";
 import { ZCallbackRequestBody, ZLogoutQuery } from "./interfaces.js";
 
-// or
-// import {
-//   getLoginForm,
-//   getLoginUrl,
-//   getLogoutUrl,
-//   validateLoginResponse,
-//   validateLogoutResponse,
-// } from "./saml2js";
-
 const fastify = Fastify({
   logger: true,
   // Enable https
   https: {
-    key: fs.readFileSync(path.join(__dirname, "../localhost.dev-key.pem")),
-    cert: fs.readFileSync(path.join(__dirname, "../localhost.dev.pem")),
+    key: fs.readFileSync(
+      path.join(__dirname, process.env.TLS_KEY_PATH || "../tls/localhost.key")
+    ),
+    cert: fs.readFileSync(
+      path.join(__dirname, process.env.TLS_CERT_PATH || "../tls/localhost.crt")
+    ),
   },
 });
 

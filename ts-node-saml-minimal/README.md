@@ -2,13 +2,6 @@
 
 v tomto momente funguje iba `@node-saml/node-saml` implementácia, ale plán je pridať aj `saml2-js` a `samlify` implementácie
 
-## Setup
-
-1. pridaj `127.0.0.1 localhost.dev` do `/etc/hosts`
-2. nainštaluj mkcert `brew install mkcert` (alebo `choco install mkcert`), viac na https://github.com/FiloSottile/mkcert#installation
-3. run `mkcert -install` - nainštaluje root CA do systému
-4. run `mkcert localhost.dev` - vygeneruje certifikát pre `localhost.dev`
-
 ## Run
 
 1. `npm install`, nainštaluje závislosti
@@ -22,7 +15,7 @@ v tomto momente funguje iba `@node-saml/node-saml` implementácia, ale plán je 
 - SSO - Single Sign-On, jedno prihlásenie na viaceré služby
 - SLO - Single Log-Out, jedno odhlásenie zo všetkých služieb
 
-## Environment variables
+## Premenné prostredia
 
 | Premenná                             | Popis                                                                                                  | Hodnota                         |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------- |
@@ -44,13 +37,11 @@ v tomto momente funguje iba `@node-saml/node-saml` implementácia, ale plán je 
 ## Štruktúra repozitára
 
 - `src`
-    - `metadata.ts` - metadáta pre IdP a SP
-    - `server.ts` - hlavný súbor servera
-    - `saml` - kód súvisiaci so SAML, implementovaný v rôznych knižniciach (`node-saml`, `saml2-js`, `samlify`)
-    - `try` - malé príklady na vyskúšanie častí pracovného postupu pri ladení
-    - `utils.ts` - pomocné funkcie
-- `localhost.dev-key.pem` - privátny kľúč pre localhost.dev
-- `localhost.dev.pem` - verejný kľúč pre localhost.dev
+  - `metadata.ts` - metadáta pre IdP a SP
+  - `server.ts` - hlavný súbor servera
+  - `saml` - kód súvisiaci so SAML, implementovaný v rôznych knižniciach (`node-saml`, `saml2-js`, `samlify`)
+  - `try` - malé príklady na vyskúšanie častí pracovného postupu pri ladení
+  - `utils.ts` - pomocné funkcie
 
 ## Routes
 
@@ -58,8 +49,3 @@ v tomto momente funguje iba `@node-saml/node-saml` implementácia, ale plán je 
 - `/auth/saml/callback` - callback endpoint, registrovaný na IdP
 - `/auth/saml/logout` - logout callback endpoint, registrovaný na IdP (iniciovaný SP)
 - `/upvs/logout` - logout endpoint, registrovaný na IdP (iniciovaný IdP)
-
-## Referencie
-
-
-- https://web.dev/articles/how-to-use-local-https
