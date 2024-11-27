@@ -24,8 +24,7 @@ docker compose up -d
 ```
 A aby sme si to celé mohli aj pozrieť, treba ešte nasledovné veci:
 * VPN na FIX prostredie Slovensko.sk
-* do `etc/host` si treba pridať `127.0.0.1  localhost.dev`
-* otvoriť si stránku https://localhost.dev:3001/ a pridať si jej certifikát medzi dôveryhodné
+* otvoriť si stránku https://127.0.0.1:3001/ a pridať si jej certifikát medzi dôveryhodné
 
 ## Konfigurácia pre java-saml
 
