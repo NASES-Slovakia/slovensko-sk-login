@@ -5,7 +5,7 @@
 - [ruby-saml](https://github.com/SAML-Toolkits/ruby-saml)
 
 ## Spustenie
-Aplikácia je nakonfigurovaná, stačí spustiť `bin/setup` pre prvotné nastavanie alebo `bin/dev` pre ďalšie spustenia. Aplikácia beží na https://localhost.dev:3001 so self-signed SSL certifikátom. 
+Aplikácia je nakonfigurovaná, stačí spustiť `bin/setup` pre prvotné nastavanie alebo `bin/dev` pre ďalšie spustenia. Aplikácia beží na https://127.0.0.1:3001 so self-signed SSL certifikátom. 
 
 ### Premenné prostredia:
 Premenná | Popis                                                                                                  | Hodnota
