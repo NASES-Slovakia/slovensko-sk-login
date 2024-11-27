@@ -60,6 +60,6 @@ export function pemWrap(header: string, body: string) {
 }
 
 export function getQueryFromUrl(url: string) {
-  const u = new URL(url, "https://localhost.dev:3001");
+  const u = new URL(url, "https://127.0.0.1:3001");
   return u.search.substring(1); // remove leading `?`
 }

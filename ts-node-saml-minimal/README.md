@@ -6,7 +6,7 @@ Implementácia SAML Service Provider (SP) pre autentifikáciu cez ÚPVS SSO. Pou
 
 1. `npm install`, nainštaluje závislosti
 2. `npm run dev`, spustí server
-3. otvor https://localhost.dev:3001/
+3. otvor https://127.0.0.1:3001/
 
 ## Dictionary
 

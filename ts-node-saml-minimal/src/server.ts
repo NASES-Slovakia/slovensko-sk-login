@@ -156,7 +156,7 @@ fastify.post(
 // Run the server
 //---------------------------------------------------------------------
 try {
-  console.log("Starting server on \n\n https://localhost.dev:3001/\n\n");
+  console.log("Starting server on \n\n https://127.0.0.1:3001/\n\n");
   await fastify.listen({ port: 3001 });
 } catch (err) {
   fastify.log.error(err);
