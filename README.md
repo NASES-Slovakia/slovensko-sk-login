@@ -11,7 +11,7 @@ https://github.com/user-attachments/assets/8d57c805-ff56-4cef-84b0-aa5a0abee3ac
 
 
 ## Predpoklady
-1. **Prístup do testovacieho prostredia slovensko.sk**  
+1. **Prístup do testovacieho prostredia slovensko.sk**          
   Na to, aby ste mohli začať testovať prihlasovanie cez testovacie identity slovensko.sk budete potrebovať prístup na testovacie prostredie slovensko.sk (https://portal.upvsfixnew.gov.sk).  
   Prístup na toto prostredie získate až po registrácii do partner framework portálu a žiadosti zaslanej do NASES.
   Informácie ohľadom žiadania o vytvorenie infraštruktúrneho prepojenia sú uvedené v dokumente s názvom *Všeobecný popis integrácie OVM, PO* v sekcii Žiadosť o vytvorenie infraštruktúrneho prepojenia (FIX). Dokument sa nachádza na [partner framework portáli](https://www.nases.gov.sk/sluzby/sluzby-pre-po-a-ovm/integracie) v časti *Integrácia na ÚPVS*, *Ako začať*.
@@ -23,7 +23,7 @@ https://github.com/user-attachments/assets/8d57c805-ff56-4cef-84b0-aa5a0abee3ac
 
 
 3. **Zaregistrované service provider (SP) metadáta**  
-  Ukážkové implementácie používajú už zaregistrované metadáta pre host `localhost.dev` a bežia na https://localhost.dev:3001/  
+  Ukážkové implementácie používajú už zaregistrované metadáta pre `127.0.0.1` a bežia na https://127.0.0.1:3001/  
   Ak chcete využívať inú adresu, je potrebné si zaregistrovať vlastné metadáta. Návod k registrácii a požiadavkam na SP metadáta: https://www.slovensko.sk/_img/CMS4/Navody/navod_poskytovatelia_sluzieb.pdf    
 
 ## Ukážkové implementácie
