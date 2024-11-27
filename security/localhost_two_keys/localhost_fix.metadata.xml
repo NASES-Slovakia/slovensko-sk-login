@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://127.0.0.1.slovensko.sk.login">
+  <SPSSODescriptor AuthnRequestsSigned="true" WantAssertionsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <KeyDescriptor use="signing">
+      <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <X509Data>
+          <X509Certificate>MIIC0TCCAbmgAwIBAgIIVKupw2OJCAIwDQYJKoZIhvcNAQENBQAwFzEVMBMGA1UE
+AxMMaWNvLTgzMTMwMDY2MB4XDTI0MTEyNjE1MTQwMloXDTI2MTEyNjE1MTQwMlow
+FzEVMBMGA1UEAxMMaWNvLTgzMTMwMDY2MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+MIIBCgKCAQEAvZx7K1IBISUb3srbSCbBgKbS4CEDMZczF16YhwcmC6uv+wJpltKY
+E2JwCwL7gZg5AYKVlLQL6fLnzDPOZ3QYx4XVhAREFFslKlj23e8Po+e9ZKu8NThO
+XAloARqkUS9ZeqYOmjQXOP28TnRUiB26rYdKKkM5vDhhleI+0IFfA9pQOBEfW0MP
+e0D58mXPXRoSAw+xCLLoqlNYZvZrphPZI2xOv2eJljfa8RUzaJIGflik+TZIjZYk
+Bikyfnpdop6o3zPKSyTGCnlu61XRj5zDM9bMaJ8pxyuI5wNnmx7jrXYEMEF1zZku
+kUVKBX224qyjdihrAqbRBsr7prwXjiFSaQIDAQABoyEwHzAdBgNVHQ4EFgQUQWte
+LduDQzFNwCCmZuWgBwsd+Y4wDQYJKoZIhvcNAQENBQADggEBAI5fQeDdWvMR/h7K
+AUiAID49Q04EWfKM1VJjQMaaecoAgZzlfeF5Vty1561pixKxKnsa3tob/ac/u7O/
+DQ5bz/rg7YB+sBsp9DYfSYxYI9/5bEPAT8RZJTgqoWEa76JZRHdDAHJcuHqkMCer
+cb/EuLoO+THL2FXcNoy7tPPzBnb4ZZfDeEsX7NNptFsy9nJFGMvkos0RMFwfCZua
+NHTPy6pbiJKxapPnl4kWLFlmStQe85qws55uIS6VUB4JoBlSFI9tItd5qGnbA4HT
+jMWtu3Zj/XzAYSZ2wOREpJMZLLvDCcrp/+5ymxXXWbonRtUNgF4W0zJMdHioWELL
+LiYBP/w=</X509Certificate>
+        </X509Data>
+      </KeyInfo>
+    </KeyDescriptor>
+    <KeyDescriptor use="encryption">
+      <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <X509Data>
+          <X509Certificate>MIIC0TCCAbmgAwIBAgIIShzeZAf5kHEwDQYJKoZIhvcNAQENBQAwFzEVMBMGA1UE
+AxMMaWNvLTgzMTMwMDY2MB4XDTI0MTEyNjE1MTQwNFoXDTI2MTEyNjE1MTQwNFow
+FzEVMBMGA1UEAxMMaWNvLTgzMTMwMDY2MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+MIIBCgKCAQEAkFwpY/+1GAyGRBP9o8DBAgTInysoB4zTlgd1sB+I+0MUCzH3p1cN
+G9uMw0H5c7iK/vgCTPrMBlCTt4fD/UApwFSIUDewarafBM8BjHCJx5hEzTTLGKS5
+S/ouktkjtQDNKBaIqlBILJXaYYh6+NaBefilL5XPeYBo3hx/+ugluQOYFHBMy3sv
+6IzX8C4F2yJjI+KnenzJXTPulifUxfqbGOeUKy0EWdb8abbQ0+yYV+6KRUPpOhxL
+Edcvbr6zcBTdYGCY6ioq+9ZIrX6zZdoDbTb3l7j7KLEarvnWQDqBKHZ428eGSPlq
+Ny4VplHT9PTRs0yRVusNK/53lByrkwGqawIDAQABoyEwHzAdBgNVHQ4EFgQUo70p
+/LVuersKfY2EFwgUvw2UxYEwDQYJKoZIhvcNAQENBQADggEBACBWqnBwzCDTjYml
+P8Lr1xHjuSAL5zfD/cqiIMNSAh5JxNdCXUgirl7NpSKgMwwNxZD6jjKuJXIY4KzQ
+f8f5EZpTao++XnKAXW9T7bub2eiXS/mi+1BXA5kjLsLo0p8gXsbPvyO8slRHyDMd
+01fz7iSpoTixxVFX4wzXmEMR78tR5ocpEicjSf2NlwdyCo9xcGlo70sOQ7h+B13M
+v0V75tp3i1IJsG8q2T/Na83R4XKqdwP7jCwfL7oneL1dmtT4QVq97FEwcBz0sHzu
+Vfa68xXbEpbgrXlx74eNmzvJp0fqaV1Gu0+kN2fgcCrMkcF98kckNhMfdJL4oot/
+Nx0cJRM=</X509Certificate>
+        </X509Data>
+      </KeyInfo>
+    </KeyDescriptor>
+    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://127.0.0.1:3001/upvs/logout" ResponseLocation="https://127.0.0.1:3001/auth/saml/logout" />
+    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://127.0.0.1:3001/upvs/logout" ResponseLocation="https://127.0.0.1:3001/auth/saml/logout" />
+    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://127.0.0.1:3001/auth/saml/callback" index="0" isDefault="true" />
+    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://127.0.0.1:3001/auth/saml/callback" index="1" />
+    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://127.0.0.1:3001/auth/saml/callback" index="2" />
+  </SPSSODescriptor>
+</EntityDescriptor>
