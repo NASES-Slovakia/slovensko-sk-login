@@ -29,6 +29,7 @@ https://github.com/user-attachments/assets/8d57c805-ff56-4cef-84b0-aa5a0abee3ac
 ## Ukážkové implementácie
 - [Ruby on Rails](/ruby-on-rails)
 - [Java Tomcat s knižnicou Onelogin SAML Toolkit](/java-onelogin)
+- [Node.js s knižnicou @node-saml/node-saml](/ts-node-saml-minimal)
 
 ## Odporúčania a upozornenia pre vlastnú implementáciu
 Pre úspešnú implementáciu prihlasovania cez slovensko.sk je potrebné upozorniť na niekoľko dôležitých detailov.
