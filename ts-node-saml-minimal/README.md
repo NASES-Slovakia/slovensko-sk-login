@@ -1,6 +1,6 @@
 # ts-node-saml-minimal - ukážka UPVS SAML SP pre Node.js
 
-Implementácia SAML Service Provider (SP) pre autentifikáciu cez ÚPVS SSO. Použitý je typescript, fastify a `@node-saml/node-salm`.
+Implementácia SAML Service Provider (SP) pre autentifikáciu cez ÚPVS SSO. Použitý je typescript, fastify a `@node-saml/node-saml`.
 
 ## Run
 
