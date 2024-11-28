@@ -34,7 +34,7 @@ export const PATH_IDP_METADATA = path.resolve(
 
 const sp_xml = readXml(PATH_SP_METADATA);
 export const sp_metadata = {
-  entity_id: sp_xml["EntityDescriptor"]["@_entityID"],
+  entity_id: assertIsDefined(sp_xml["EntityDescriptor"]["@_entityID"]),
   assertion_consumer_service_url:
     sp_xml["EntityDescriptor"]["SPSSODescriptor"][
       "AssertionConsumerService"
@@ -44,44 +44,58 @@ export const sp_metadata = {
     sp_xml["EntityDescriptor"]["SPSSODescriptor"]["SingleLogoutService"][0][
       "@_Location"
     ],
-  sigining_cert: cleanCert(
-    sp_xml["EntityDescriptor"]["SPSSODescriptor"]["KeyDescriptor"].find(
-      (x: any) => x["@_use"] === "signing"
-    )?.["KeyInfo"]["X509Data"]["X509Certificate"]
+  sigining_cert: assertIsDefined(
+    cleanCert(
+      sp_xml["EntityDescriptor"]["SPSSODescriptor"]["KeyDescriptor"].find(
+        (x: any) => x["@_use"] === "signing"
+      )?.["KeyInfo"]["X509Data"]["X509Certificate"]
+    )
   ),
-  signing_private_key: cleanCert(UPVS_SSO_SP_SIGNING_PRIVATE_KEY),
-  encryption_cert: cleanCert(
-    sp_xml["EntityDescriptor"]["SPSSODescriptor"]["KeyDescriptor"].find(
-      (x: any) => x["@_use"] === "encryption"
-    )?.["KeyInfo"]["X509Data"]["X509Certificate"]
+  signing_private_key: assertIsDefined(
+    cleanCert(UPVS_SSO_SP_SIGNING_PRIVATE_KEY)
   ),
-  encryption_private_key: cleanCert(UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY),
+  encryption_cert: assertIsDefined(
+    cleanCert(
+      sp_xml["EntityDescriptor"]["SPSSODescriptor"]["KeyDescriptor"].find(
+        (x: any) => x["@_use"] === "encryption"
+      )?.["KeyInfo"]["X509Data"]["X509Certificate"]
+    )
+  ),
+  encryption_private_key: assertIsDefined(
+    cleanCert(UPVS_SSO_SP_ENCRYPTION_PRIVATE_KEY)
+  ),
 };
 
 const idp_xml = readXml(PATH_IDP_METADATA);
 export const idp_metadata = {
-  entity_id: idp_xml["md:EntityDescriptor"]["@_entityID"],
-  single_sign_on_service_url:
+  entity_id: assertIsDefined(idp_xml["md:EntityDescriptor"]["@_entityID"]),
+  single_sign_on_service_url: assertIsDefined(
     idp_xml["md:EntityDescriptor"]["md:IDPSSODescriptor"][
       "md:SingleSignOnService"
-    ][0]["@_Location"],
-  single_logout_service_url:
+    ][0]["@_Location"]
+  ),
+  single_logout_service_url: assertIsDefined(
     idp_xml["md:EntityDescriptor"]["md:IDPSSODescriptor"][
       "md:SingleLogoutService"
-    ][0]["@_Location"],
-  x509_signing_cert: cleanCert(
-    idp_xml["md:EntityDescriptor"]["md:IDPSSODescriptor"][
-      "md:KeyDescriptor"
-    ].find((key: any) => key["@_use"] === "signing")?.["dsig:KeyInfo"][
-      "dsig:X509Data"
-    ]["dsig:X509Certificate"]
+    ][0]["@_Location"]
   ),
-  x509_encryption_cert: cleanCert(
-    idp_xml["md:EntityDescriptor"]["md:IDPSSODescriptor"][
-      "md:KeyDescriptor"
-    ].find((key: any) => key["@_use"] === "encryption")?.["dsig:KeyInfo"][
-      "dsig:X509Data"
-    ]["dsig:X509Certificate"]
+  x509_signing_cert: assertIsDefined(
+    cleanCert(
+      idp_xml["md:EntityDescriptor"]["md:IDPSSODescriptor"][
+        "md:KeyDescriptor"
+      ].find((key: any) => key["@_use"] === "signing")?.["dsig:KeyInfo"][
+        "dsig:X509Data"
+      ]["dsig:X509Certificate"]
+    )
+  ),
+  x509_encryption_cert: assertIsDefined(
+    cleanCert(
+      idp_xml["md:EntityDescriptor"]["md:IDPSSODescriptor"][
+        "md:KeyDescriptor"
+      ].find((key: any) => key["@_use"] === "encryption")?.["dsig:KeyInfo"][
+        "dsig:X509Data"
+      ]["dsig:X509Certificate"]
+    )
   ),
 };
 
@@ -95,7 +109,7 @@ function readXml(fp: string) {
     ignoreAttributes: false,
   });
   const f = fs.readFileSync(fp, "utf8");
-  f.replace(/[\n\r\t]/g, "");
+  f.replace(/[\n\r]/g, "");
   let result = parser.parse(f);
 
   return result;
@@ -115,7 +129,7 @@ function cleanCert(cert: string) {
  * Helper function to assert that a value is defined
  */
 function assertIsDefined<T>(val: T, failureMessage?: string): NonNullable<T> {
-  if (val === undefined || val === null) {
+  if (val === undefined || val === null || val === "" || typeof val !== "string") {
     if (failureMessage) {
       console.log({ val });
       throw new Error(failureMessage);
