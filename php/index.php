@@ -82,8 +82,8 @@ if (strpos($current_url, 'auth/saml/callback') !== false) {
             $_SESSION['samlUserdata'] = $auth->getAttributes();
             $_SESSION['samlNameId'] = $auth->getNameId();
             $_SESSION['samlNameIdFormat'] = $auth->getNameIdFormat();
-            $_SESSION['samlNameidNameQualifier'] = $auth->getNameIdNameQualifier();
-            $_SESSION['samlNameidSPNameQualifier'] = $auth->getNameIdSPNameQualifier();
+            $_SESSION['samlNameIdNameQualifier'] = $auth->getNameIdNameQualifier();
+            $_SESSION['samlNameIdSPNameQualifier'] = $auth->getNameIdSPNameQualifier();
             $_SESSION['samlSessionIndex'] = $auth->getSessionIndex();
 
             $name = $auth->getAttribute('Actor.FirstName')[0] . ' ' . $auth->getAttribute('Actor.LastName')[0];
@@ -139,11 +139,10 @@ HTML;
     $logoutResponse = new LogoutResponse(new Settings($settings), $_GET['SAMLResponse']);
 
     if (!$logoutResponse->isValid()) {
-        echo "Logout failed, invalid logout respponse!";
-    } else if ($logoutResponse->getStatus() !== Constants::STATUS_REQUESTER) {
+        echo "Logout failed, invalid logout response!";
+    } else if ($logoutResponse->getStatus() !== Constants::STATUS_SUCCESS) {
         echo "Logout failed!";
     } else {
-        echo $logoutResponse->getXML();
         Utils::deleteLocalSession();
         echo "Logout successful!";
     }
