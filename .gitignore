@@ -2,3 +2,5 @@
 php/vendor/
 
 php/certs/
+
+.DS_Store

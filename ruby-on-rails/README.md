@@ -5,7 +5,7 @@
 - [ruby-saml](https://github.com/SAML-Toolkits/ruby-saml)
 
 ## Spustenie
-Aplikácia je nakonfigurovaná, stačí spustiť `bin/setup` pre prvotné nastavanie alebo `bin/dev` pre ďalšie spustenia. Aplikácia beží na https://localhost.dev:3001 so self-signed SSL certifikátom. 
+Aplikácia je nakonfigurovaná, stačí spustiť `bin/setup` pre prvotné nastavanie alebo `bin/dev` pre ďalšie spustenia. Aplikácia beží na https://127.0.0.1:3001 so self-signed SSL certifikátom. 
 
 ### Premenné prostredia:
 Premenná | Popis                                                                                                  | Hodnota
@@ -34,7 +34,7 @@ Súbor | Popis
 
 ### Odhlásenie používateľa iniciované na strane SP
 1. Začiatok procesu odhlásenia na `/upvs/logout` endpointe, spracovanie v [UpvsController](app/controllers/upvs_controller.rb#L22-L23).
-2. Redirect so SAML Response z ÚPVS portálu na `/upvs/logout` endpoint, spracovanie v [UpvsController](app/controllers/upvs_controller.rb#L20).
+2. Redirect so SAML Response z ÚPVS portálu na `auth/saml/logout` endpoint, spracovanie knižnicou.
 3. Odhlásený používateľ.
 
 ### Odhlásenie používateľa iniciované na strane IdP

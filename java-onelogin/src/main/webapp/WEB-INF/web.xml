@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+
+    <filter>
+        <filter-name>protected</filter-name>
+        <filter-class>com.archimetes.cgpcon.websso.ProtectedFilter</filter-class>
+    </filter>
+
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>com.archimetes.cgpcon.websso.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>logoutServlet</servlet-name>
+        <servlet-class>com.archimetes.cgpcon.websso.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>samlcallbackServlet</servlet-name>
+        <servlet-class>com.archimetes.cgpcon.websso.SamlServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SingleLogoutServiceServlet</servlet-name>
+        <servlet-class>com.archimetes.cgpcon.websso.SingleLogoutServiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>metadata</servlet-name>
+        <servlet-class>com.archimetes.cgpcon.websso.MetadataServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>logoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>samlcallbackServlet</servlet-name>
+        <url-pattern>/auth/saml/callback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SingleLogoutServiceServlet</servlet-name>
+        <url-pattern>/auth/saml/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>metadata</servlet-name>
+        <url-pattern>/sp-metadata.xml</url-pattern>
+    </servlet-mapping>
+
+    <filter-mapping>
+        <filter-name>protected</filter-name>
+        <url-pattern>/protected/*</url-pattern>
+    </filter-mapping>
+
+</web-app>
