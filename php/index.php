@@ -25,21 +25,21 @@ $idp_config = [
 ];
 
 $sp_config = [
-    'entityId' => 'https://localhost.dev2',
+    'entityId' => 'https://127.0.0.1.slovensko.sk.login2',
     'assertionConsumerService' => [
-        'url' => 'https://localhost.dev:3001/auth/saml/callback',
+        'url' => 'https://127.0.0.1:3001/auth/saml/callback',
     ],
     'singleLogoutService' => [
-        'url' => 'https://localhost.dev:3001/auth/saml/logout',
+        'url' => 'https://127.0.0.1:3001/auth/saml/logout',
     ],
-    'x509cert' => 'MIIC0jCCAbqgAwIBAgIJAIr0WzkIL6fiMA0GCSqGSIb3DQEBDQUAMBcxFTATBgNVBAMTDGljby04MzEzMDA2NjAeFw0yNDExMTIwODI1MTJaFw0yNjExMTIwODI1MTJaMBcxFTATBgNVBAMTDGljby04MzEzMDA2NjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKuc5o1O7CjDF0LME7tbuVkfjYeuVvAD5ZE0r/vROVkV1hkwQqwTb7/QCNRtt8x/jb04kf+tNk33cfDZ6Pz/MnsV3iuL/ZA4YF2ecisYPnpBY6UXzeBuWhsT+i0JBqrD5MQAkM/2eoztb5VM0DKLMPqs7iEmkSWsz2t7bg9j83Lt5kkaffJ/qSi2gMb0CJbW2t14QDKJQ7D0nxL3DTIttgg0IoFsX72/EZFLhoSNwbkX1wfGu+ruNi2GCvly9PCiYSMgMogs/lSGZVGlBZe2MJc2CR/5fvOL29ChVL8KU6LYeR8yenMELoK9SoyJK7qp0bGyqDxMA3ytkBWLIEuRNG0CAwEAAaMhMB8wHQYDVR0OBBYEFN4DCv8pla+6Qxji32jieReyWHeUMA0GCSqGSIb3DQEBDQUAA4IBAQBaxqfBP1pBaYQ5SkpGcNmMuRXtg457xhBn3f3rtQymz0IX/AUlaXQPUEdzT31p3gyE8MpuYB2l524dPbUnqjsfG5EPNKOpXWhVZPH6SzA0g66+L9nLbczZ3qBZ87HbofBTgmtu+U/e1kIoy/KK8FyJvc72Knb1CbI9DjSi4fpeK2WakI+i7INiF7sFXXpQ/M4JNhYRCZBQoVARP6oS3+Fv7tob0jGP7x8MrD4Q4cy5xTLCPWel+dYKLffzeRgAiYHerQmO3nPiVByX838NQd4Wx9Zsp+WUAjXz//m1AGJHxlqEZuloPNPLhMLzAl5pNGe+Vo4K07RygyFsaiYfnE0j',
-    'privateKey' => 'MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCrnOaNTuwowxdCzBO7W7lZH42HrlbwA+WRNK/70TlZFdYZMEKsE2+/0AjUbbfMf429OJH/rTZN93Hw2ej8/zJ7Fd4ri/2QOGBdnnIrGD56QWOlF83gblobE/otCQaqw+TEAJDP9nqM7W+VTNAyizD6rO4hJpElrM9re24PY/Ny7eZJGn3yf6kotoDG9AiW1trdeEAyiUOw9J8S9w0yLbYINCKBbF+9vxGRS4aEjcG5F9cHxrvq7jYthgr5cvTwomEjIDKILP5UhmVRpQWXtjCXNgkf+X7zi9vQoVS/ClOi2HkfMnpzBC6CvUqMiSu6qdGxsqg8TAN8rZAViyBLkTRtAgMBAAECggEAALyJY8FbM5iUvLll+0ebPcXsJFEr99c4cL1WZQECmz6D/vMtUhI6SEszAoBfCc5hVBbOT5fVdBO0BjnVLWLF+2++VpcA9VG8niI8MLGnsPwfWpnFzSkEE3osOG3BvNFe5bVv6aiP4ZNyR2R/PzxIL0c3NWa2OEBr2nT65a+C37MiXGbiZ6Zv+mfMKb23IOrd0AGk3aQ38rJeBQVVVAsc+2qIV+TITy/6OlU8BE7HijYucBisIvIn1VbjZqUI1rUXdsKiDPhJZQBU05AdA3XERvHSggI8Z965c9v6S963hKjpqrQh+6WqsjNKhZRQscM2vHEhvvQXn90Jr+RSSToXAQKBgQDhCDSmedRhVQtlBvbelinkpYsunMcuc4V0CWgTbDYDDIi4wflNT9+HHh0tNuKQXrWguN9sjqVAqzuXJ5tYtBS2vaxPz6/chJBp9CTLCwNJt6lcICy2dcsMBalfUl8eF9PfBB0Irs8w8jU3ZFwOHo+aanAuxkhfQwONRsA5IIzRAQKBgQDDOsIQVC0ZF+llcV2J6QOtvnNxWoRVfNzhaUQFCSZTJ81PayOyp93MKJO/b/zL3xMdQHeYhpJuzPRx+CFaeveM8udtqdiBWeGooZhHrll79ROo1FerfsXAeG3rGHYQG85fvuDvzhVGgNeEXrXa3X6RtCbE7onUDV7fJUGGabU3bQKBgQCq1cjqrUifT6nj24Kk/oj1TPu5ukm4KPkiW1XIkPj8HZLZ+GBj4gRHFoR949HiWhQ23MK5Lh2kV5pYqTfVAnlLNflPadMPbRAZb8BS6JxpZWXMS5zGM+yextmLRQRy2xH8l6nXAqbGeMoPsD/2dBr+1lkuGVeuAjj7EsAxXlWpAQKBgFP+X6fuz0hQhVXjpD7FRZPmsHxAWVb+VXmVdHJGMXrtUOOuULl4h3BitM5UPArqeqrHJa01mKKbA0BVZOQsq3y0tOT1gfSE2xVWENImLNGr6z1jviRGcoYQShovd/wOOofu84+4tmaS4CZPKSZ0zROa0mM/zYSyC/MtcDeIGzMxAoGBAIi1kD8l1ikgQQUcmlUNBFd8/1O8vxxHGfMHZd/wqnAxlc+2ux0yvpVJOJsCuyh6h4LGgiHV7XB0QbLv/QFRE+CLnfqNRrUZbg3DN4ybqYG3tWBZ3Pw6xWS2Qm9CB4Q7EhwAsyl3Gg9CL9Rpw3n1dY6WnGzQx/hwbsSZ/jD6+VGs',
+    'x509cert' => "MIIC0jCCAbqgAwIBAgIJAIFbvHv7QDurMA0GCSqGSIb3DQEBDQUAMBcxFTATBgNVBAMTDGljby04MzEzMDA2NjAeFw0yNDExMjcwODM5MDVaFw0yNjExMjcwODM5MDVaMBcxFTATBgNVBAMTDGljby04MzEzMDA2NjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALGTNychJTmMUEk5zp3jo5UU3n4OleoJkDBpMGLWK8Vx7CB1c0+V6OGfv6vXelwHWz5v3le7GYnOVnxs8ji4/rOy5NycasrbNvYyN0ds+bmipzeYfss5Jc16//5u+ubUjOQAt/nJKEqautvXyfLXIc45IDLec7gHDxvyfbqK1r9j06Jok8zL5RQRfe22KYcbrUYbczilDqK+N+owW8FLJgaMHuQBCuKh+60MzIb1FjUxwgvTla1J85yoLulKayzZhLQR1LISoHo0gmn/xO7sOCSe/uSZMuMbXVnto3tIqYd5CLOLN4ueTX/Db+SdNCRXXGoq1P0bIeqzZDMsiM7/8ZkCAwEAAaMhMB8wHQYDVR0OBBYEFP8tiwn5IiXj/aHXWO7/1mLUza6KMA0GCSqGSIb3DQEBDQUAA4IBAQAuWZinH2gdBVQs+Jd8Xxrw+FbOYFhZhJ/Ev2vqSe76NK+pLx5S7gJc8ag8oyLTufdY0RXJ6FHW/ArYJo/n9WPD5xrtP3r95a+1b2R7OOXOVui2DPQ4fJPiZXpz8GnwrwwmWu6WYesxdUvV2eVRy30Taj9JGAaTwiQsDGSG6yPasK0llgGp4fzaAt9DFF1rhk7G+ZfwAUK93wEvmNHTzoPYxpaLe2Dc32AXQeSaWvZungFrjmVgHUlkxsGa7m7Wi3XZz3SY/FaQXaJGvaE0tFi/frP9SdIDoIGH+K+afw+7dtTdCkAi8ornePGbhTSRsJ2yymVs3rarSU3dT7+8609r",
+    'privateKey' => "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCxkzcnISU5jFBJOc6d46OVFN5+DpXqCZAwaTBi1ivFcewgdXNPlejhn7+r13pcB1s+b95XuxmJzlZ8bPI4uP6zsuTcnGrK2zb2MjdHbPm5oqc3mH7LOSXNev/+bvrm1IzkALf5yShKmrrb18ny1yHOOSAy3nO4Bw8b8n26ita/Y9OiaJPMy+UUEX3ttimHG61GG3M4pQ6ivjfqMFvBSyYGjB7kAQriofutDMyG9RY1McIL05WtSfOcqC7pSmss2YS0EdSyEqB6NIJp/8Tu7Dgknv7kmTLjG11Z7aN7SKmHeQizizeLnk1/w2/knTQkV1xqKtT9GyHqs2QzLIjO//GZAgMBAAECggEAFLXaQ16KxGT4ginTTrfbfsoxztrtoh+eaP8DrStUbJFGXFzGZ5xQzmu+w5B8jVowSp5qfKnuJxPhI17jezkcP6IYLiCyFdmuVdVyfAqaL4voW8QV2abfIVF8pNSVv7E/g2IQEvpikBzuuTA4NfHgV/hyqGwoa+iq2vQTtNt3g1ezqBzINqdwmAbGwfk/SudbTTBcQjYbRo7EQYwLN3wqqEpWKvssp7EtJdtGTcMazKE69aGiCIOiBuE1AN9EBswZQAdQSrWR3nz2m972ZO8PrTDWYnkZWNHvWOuTr+oCKkDFLTlgM+hf+fYXddOG+yzvCCLJkNmNhz+PfmJH67LjgQKBgQDvatdLmSlNt06or+JPOHItgtZF3fufWAYqtRMVWrhv1XjS4dMwL+1WIJoTnyewQe97bjQ/WRZUsukM4U4TaOKqnryg2S1Lt4/S093LZ2tHwklNQWwrj/t3DOJd6Uqv0+RGz27RjX+x+dIxjvJWNF2rYnzJTVb84HWT96aoONoi4QKBgQC939X/bLODb3iSEFx+SBNpifnSHj7yG61j9ZX02G9OKlf1PEs9Sal7dtTRBNOgM91tSZYr591Tb/F54SAZd6FxxEMWzvhNTmnE8YgIxZmrZdnaUgYqpTBFl4z3yMM1y4fICYDpcPZ4epHCTEGoG6+ZYcfg3KAcX0JcO6obIdFduQKBgAEHuqlunUjiUwpSx2yD16nueDGQxPZokI46fTyISWbhykVOB3SboC/QsBkJhEgz4G3tiXgEUB5JLsuJZKacuuz1BebDSHic75d+peOsLEAAzAPzFh4R3okimw7AZDvhc4gCeH2aWERRyN/Bt7U7QHPuVo8fMBKifJ8IX8U1iWrBAoGAYzw1UAWz3KHJ1i0O6kEpRCOEmbiNFWQ5vuB/uzPTGHsw9U7J1AJHvethVsy6/iOdOp0XC2NnXVBIWHa8nBLWIet9VNJfG6g7x16kxlDf+6CDt4LfDjK/g9+tIWOgAuGY2Yd+BIOxjU4iF/Za6k1t/TAJkxA77hgrSqE0SnHmRqECgYAQrtrlANQwWXgyH/5stK5ZHSWRwTLSJWbv74F3e/9pwQiFMPs+krkslMDgQTHvWcoUhpJ+XuZZarsOmC31zm1Q7D6y//Q985FClh7Ia8l/I8aEJCsED5es54dPOgvH7NUnYPLWGk1u98gNqwiqgVCOAYG8A0tn05VQZgcH6xYARw==",
 ];
 
 // Create the SAML Settings
 $settings = [
     'strict' => true,
-    'baseurl' => 'https://localhost.dev:3001',
+    'baseurl' => 'https://127.0.0.1:3001',
     'sp' => $sp_config,
     'idp' => $idp_config,
     'security' => [
@@ -90,7 +90,7 @@ if (strpos($current_url, 'auth/saml/callback') !== false) {
 
             echo <<<HTML
                 <h1>Authenticated! Welcome, $name!</h1>
-                <form method="POST" action="https://localhost.dev:3001/logout">
+                <form method="POST" action="https://127.0.0.1:3001/logout">
                     <button type="submit" name="logout">Logout</button>
                 </form>
                 <p>User data:
@@ -110,7 +110,7 @@ HTML;
         echo "Error processing SAML response: " . $e->getMessage();
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
-    $returnTo = 'https://localhost.dev:3001/auth/saml/logout';
+    $returnTo = 'https://127.0.0.1:3001/auth/saml/logout';
     $nameId = null;
     $sessionIndex = null;
     $nameIdFormat = null;

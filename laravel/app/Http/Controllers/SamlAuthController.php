@@ -58,9 +58,9 @@ class SamlAuthController extends Controller
             abort(404);
         }
 
-        // otherwise the Utils would take only http://localhost.dev
+        // otherwise the Utils would take only http://127.0.0.1
         // also solves this issue: https://github.com/SAML-Toolkits/php-saml/issues/464
-        Utils::setBaseURL('https://localhost.dev:3001/auth/saml/');
+        Utils::setBaseURL('https://127.0.0.1:3001/auth/saml/');
 
         $auth = new \Slides\Saml2\Auth(app('OneLogin_Saml2_Auth'), $tenant);
 
@@ -105,9 +105,9 @@ class SamlAuthController extends Controller
             abort(404);
         }
 
-        // otherwise the Utils would take only http://localhost.dev
+        // otherwise the Utils would take only http://127.0.0.1
         // also solves this issue: https://github.com/SAML-Toolkits/php-saml/issues/464
-        Utils::setBaseURL('https://localhost.dev:3001/auth/saml/');
+        Utils::setBaseURL('https://127.0.0.1:3001/auth/saml/');
 
         $auth = new \Slides\Saml2\Auth(app('OneLogin_Saml2_Auth'), $tenant);
 

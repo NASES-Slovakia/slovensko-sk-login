@@ -36,7 +36,7 @@ class SignedIn
         ];
 
         $user = User::query()->updateOrCreate([
-            'saml_user_id' => $samlUser->getUserId()
+            'email' => $samlUser->getAttribute('Subject.Email')[0],
         ], $userData);
 
         if(!$user->email_verified_at) {

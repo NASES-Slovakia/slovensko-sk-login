@@ -195,7 +195,7 @@ return [
         */
 
         'assertionConsumerService' => [
-            'url' => 'https://localhost.dev:3001/auth/saml/callback',
+            'url' => 'https://127.0.0.1:3001/auth/saml/callback',
         ],
 
         /*
@@ -212,7 +212,7 @@ return [
         */
 
         'singleLogoutService' => [
-            'url' => 'https://localhost.dev:3001/auth/saml/logout'
+            'url' => 'https://127.0.0.1:3001/auth/saml/logout'
         ],
     ],
 
