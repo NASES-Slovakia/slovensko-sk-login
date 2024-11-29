@@ -44,6 +44,12 @@ Tento príkaz vytvorí záznam v DB tabuľke `saml2_tenants`.
 
 6. Aplikácia beží na https://127.0.0.1:3001 so self-signed SSL certifikátom.
 
+> [!CAUTION]
+> Z dôvodu zatiaľ neopravenej chyby v knižnici `onelogin/php-saml` (v čase písania - 19.11.2024, https://github.com/SAML-Toolkits/php-saml/issues/464) nie je bez manuálneho zásahu možné používať callback URLky s viacerými časťami, napr. `/auth/saml/callback`.
+> V Laraveli sa to dá obísť nastavením `Utils::setBaseURL('https://127.0.0.1:3001/auth/saml/');` - treba zadať celú callback URL, ktorú chcete využívať, bez poslednej časti.
+> Pre `https://127.0.0.1:3001/auth/saml/callback` by to bolo `https://127.0.0.1:3001/auth/saml/`. Príklad si môžete pozrieť aj v `app/Http/Controllers/SamlAuthController.php`.
+
+
 ## Metadáta
 Metadáta v XML sa nachádzajú v priečinku `../security`.
 
