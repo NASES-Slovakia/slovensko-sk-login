@@ -13,11 +13,15 @@ Route::middleware(array_merge(['saml2.resolveTenant'], config('saml2.routesMiddl
     Route::get('/login', [SamlAuthController::class, 'redirectToLoginProvider'])->name('login');
     Route::get('/logout', [SamlAuthController::class, 'logoutAtLoginProvider'])->name('logout');
     Route::post('/auth/saml/callback', [SamlAuthController::class, 'loginCallback'])->name('login-callback');
-    Route::get('/auth/saml/logout', [SamlAuthController::class, 'logoutCallback'])->name('logout-callback');;
+    Route::get('/auth/saml/logout', [SamlAuthController::class, 'logoutRequestFromSp'])->name('logout-callback');;
     Route::get('/upvs/logout', [SamlAuthController::class, 'logoutRequestFromIdp'])->name('logout-request');;
 });
 
 Route::get('/authenticated', function () {
+    if(!Auth::check()) {
+        return redirect()->to(url('/'));
+    }
+
     return view('authenticated', ['user' => Auth::user()]);
 })->name('authenticated');
 

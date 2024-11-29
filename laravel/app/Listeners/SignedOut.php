@@ -18,7 +18,7 @@ class SignedOut
     /**
      * Handle the event.
      */
-    public function handle(\Slides\Saml2\Events\SignedIn $event): void
+    public function handle(\Slides\Saml2\Events\SignedOut $event): void
     {
         Auth::logout();
         Session::save();
