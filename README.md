@@ -71,3 +71,4 @@ https://portal.upvsfixnew.gov.sk/
 
 ## Autori
 
+Prvú verziu pre Národnú agentúru pre sieťové a elektronické služby (NASES) vytvorila firma Služby Slovensko.Digital, s.r.o. v spolupráci s komunitiou Slovensko.Digital. 
