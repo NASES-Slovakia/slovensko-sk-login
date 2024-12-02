@@ -142,13 +142,13 @@ if (str_contains($current_url, 'auth/saml/callback')) {
 } else {
     if (isset($_SESSION['samlSessionIndex'])) {
         echo <<<HTML
-        <form method="POST" action="https://127.0.0.1:3001/logout">
+        <form method="POST" action="/logout">
             <button type="submit" name="logout">Logout</button>
         </form>
 HTML;
     } else {
         echo <<<HTML
-        <form method="GET" action="https://127.0.0.1:3001/login">
+        <form method="GET" action="/login">
             <button type="submit" name="login">Login</button>
         </form>
 HTML;
@@ -159,7 +159,7 @@ function authenticated($name, $auth): void
 {
     echo <<<HTML
         <h1>Authenticated! Welcome, $name!</h1>
-        <form method="POST" action="https://127.0.0.1:3001/logout">
+        <form method="POST" action="/logout">
             <button type="submit" name="logout">Logout</button>
         </form>
             <table style="border: 1px solid black; width: 100%;  border-collapse: collapse;">
