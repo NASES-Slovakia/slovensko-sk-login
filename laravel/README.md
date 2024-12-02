@@ -25,17 +25,13 @@ cp .env.example .env
 ```
 sail up -d
 ```
-4. Vygenerovať app key
-```
-sail artisan key:generate
-```
-5. Spustiť migrácie a NPM
+4. Spustiť migrácie a NPM
 ```
     sail artisan migrate
     sail npm install
     sail npm run dev
 ```
-6. Vytvoriť SAML Tenant s IdP metadátami
+5. Vytvoriť SAML Tenant s IdP metadátami
 ```
     sail artisan saml2:create-tenant \
      --entityId="https://prihlasenie.upvsfix.gov.sk/oam/fed" \
@@ -46,7 +42,7 @@ sail artisan key:generate
 ```
 Tento príkaz vytvorí záznam v DB tabuľke `saml2_tenants`.
 
-7. Aplikácia beží na https://127.0.0.1:3001 so self-signed SSL certifikátom.
+6. Aplikácia beží na https://127.0.0.1:3001 so self-signed SSL certifikátom.
 
 > [!CAUTION]
 > Z dôvodu zatiaľ neopravenej chyby v knižnici `onelogin/php-saml` (v čase písania - 19.11.2024, https://github.com/SAML-Toolkits/php-saml/issues/464) nie je bez manuálneho zásahu možné používať callback URLky s viacerými časťami, napr. `/auth/saml/callback`.
@@ -63,7 +59,7 @@ rôznych kľúčov pre encryption a signing.
 
 Pre IdP sú použité metadáta `upvs_fix.metadata.xml`.
 
-SP dáta boli nastavené v kroku 2., a IdP dáta v kroku 6.
+SP dáta boli nastavené v kroku 2., a IdP dáta v kroku 5.
 
 
 
