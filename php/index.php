@@ -71,7 +71,7 @@ $auth = new Auth($settings);
 $current_url = $_SERVER['REQUEST_URI'];
 
 // process login response
-if (strpos($current_url, 'auth/saml/callback') !== false) {
+if (str_contains($current_url, 'auth/saml/callback')) {
     try {
         // If SAML Response is present, validate and process the response
         $auth->processResponse();
@@ -88,21 +88,7 @@ if (strpos($current_url, 'auth/saml/callback') !== false) {
 
             $name = $auth->getAttribute('Actor.FirstName')[0] . ' ' . $auth->getAttribute('Actor.LastName')[0];
 
-            echo <<<HTML
-                <h1>Authenticated! Welcome, $name!</h1>
-                <form method="POST" action="https://127.0.0.1:3001/logout">
-                    <button type="submit" name="logout">Logout</button>
-                </form>
-                <p>User data:
-                    <pre>
-HTML;
-
-            var_export($auth->getAttributes());
-
-            echo <<<HTML
-                        </pre>
-                    </p>
-HTML;
+            authenticated($name, $auth);
         } else {
             echo "Authentication failed!";
         }
@@ -135,7 +121,7 @@ HTML;
 
     $auth->logout($returnTo, [], $nameId, $sessionIndex, false, $nameIdFormat, $nameIdNameQualifier, $nameIdSPNameQualifier);
 
-} elseif (strpos($current_url, 'auth/saml/logout') !== false) {
+} elseif (str_contains($current_url, 'auth/saml/logout')) {
     $logoutResponse = new LogoutResponse(new Settings($settings), $_GET['SAMLResponse']);
 
     if (!$logoutResponse->isValid()) {
@@ -145,9 +131,52 @@ HTML;
     } else {
         Utils::deleteLocalSession();
         echo "Logout successful!";
+        header("Location: /");
+        die();
     }
-} else {
+} else if(str_contains($current_url, 'login')) {
     // Redirect to the IdP for authentication
     $auth->login();
+} else if(str_contains($current_url, '/upvs/logout')) {
+    $auth->processSLO();
+} else {
+    if (isset($_SESSION['samlSessionIndex'])) {
+        echo <<<HTML
+        <form method="POST" action="https://127.0.0.1:3001/logout">
+            <button type="submit" name="logout">Logout</button>
+        </form>
+HTML;
+    } else {
+        echo <<<HTML
+        <form method="GET" action="https://127.0.0.1:3001/login">
+            <button type="submit" name="login">Login</button>
+        </form>
+HTML;
+    }
+}
+
+function authenticated($name, $auth): void
+{
+    echo <<<HTML
+        <h1>Authenticated! Welcome, $name!</h1>
+        <form method="POST" action="https://127.0.0.1:3001/logout">
+            <button type="submit" name="logout">Logout</button>
+        </form>
+            <table style="border: 1px solid black; width: 100%;  border-collapse: collapse;">
+HTML;
+
+    foreach($auth->getAttributes() as $name => $value) {
+        echo <<<HTML
+            <tr>
+                <td style="font-weight: bold; border: 1px solid black">$name</td>
+                <td style="border: 1px solid black">$value[0]</td>
+            </tr>
+HTML;
+    };
+
+    echo <<<HTML
+        </table>
+    
+HTML;
 }
 ?>

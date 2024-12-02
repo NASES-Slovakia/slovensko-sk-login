@@ -10,20 +10,24 @@
 # Spustenie
 1. Nainštalovať Composer dependencies cez Docker
 ```
-   docker run --rm \
-   -u "$(id -u):$(id -g)" \
-   -v "$(pwd):/var/www/html" \
-   -w /var/www/html \
-   laravelsail/php83-composer:latest \
-   composer install --ignore-platform-reqs
+docker run --rm \
+-u "$(id -u):$(id -g)" \
+-v "$(pwd):/var/www/html" \
+-w /var/www/html \
+laravelsail/php83-composer:latest \
+composer install --ignore-platform-reqs
 ```
 2. Vyplniť premenné prostredia v `.env`
 ```
-    cp .env.example .env
+cp .env.example .env
 ```
 3. Spustiť Docker container cez Laravel Sail
 ```
-    sail up -d
+sail up -d
+```
+4. Vygenerovať app key
+```
+sail artisan key:generate
 ```
 4. Spustiť migrácie a NPM
 ```
