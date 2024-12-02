@@ -7,7 +7,7 @@ Toto úložisko obsahuje ukážkové implementácie prihlasovania pomocou sloven
 **UPOZORNENIE: Pre produkčné použitie je potrebné prejst aj pomerne zložitým formálnym procesom integrácie s NASES. Detaily tohto procesu nájdete na [partner framework portáli](https://www.nases.gov.sk/sluzby/sluzby-pre-po-a-ovm/integracie).**
 
 
-https://github.com/user-attachments/assets/8d57c805-ff56-4cef-84b0-aa5a0abee3ac
+https://github.com/user-attachments/assets/aa5534dc-f741-4229-8374-8f6ff4c7d024
 
 
 ## Predpoklady
