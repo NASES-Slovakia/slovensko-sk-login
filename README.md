@@ -30,7 +30,7 @@ https://github.com/user-attachments/assets/aa5534dc-f741-4229-8374-8f6ff4c7d024
 - [Ruby on Rails](/ruby-on-rails)
 - [Java Tomcat s knižnicou Onelogin SAML Toolkit](/java-onelogin)
 - [Node.js s knižnicou @node-saml/node-saml](/ts-node-saml-minimal)
-- [Vanilla PHP](/php)
+- [Čisté PHP](/php)
 - [PHP s frameworkom Laravel](/laravel)
 
 ## Odporúčania a upozornenia pre vlastnú implementáciu
