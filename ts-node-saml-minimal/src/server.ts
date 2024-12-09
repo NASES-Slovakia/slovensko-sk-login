@@ -49,6 +49,7 @@ fastify.get("/", async function handler(request: any, reply: any) {
     <html>
         <head>
             <title>Test</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         </head>
         <body>
             <h1>Test</h1>
