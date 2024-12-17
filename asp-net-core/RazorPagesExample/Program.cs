@@ -25,7 +25,7 @@ builder.Services
     var samlConfig = builder.Configuration.GetSection("Saml").Get<SamlConfig>();
 
     sharedOptions.SPOptions.EntityId = new EntityId(samlConfig.ServiceProvider.Id);
-    
+
     var certificate = new X509Certificate2(samlConfig.ServiceProvider.Certificate.Path, samlConfig.ServiceProvider.Certificate.Key);
     sharedOptions.SPOptions.ServiceCertificates.Add(certificate);
     sharedOptions.SPOptions.AuthenticateRequestSigningBehavior = SigningBehavior.Always;
@@ -65,5 +65,3 @@ app.MapGet("/auth/saml/logout", (HttpContext context, ILogger<Program> logger) =
 });
 
 app.Run();
-
-
