@@ -1,5 +1,6 @@
 using System.Security.Cryptography.X509Certificates;
 
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 using Sustainsys.Saml2;
@@ -62,6 +63,24 @@ app.MapGet("/auth/saml/logout", (HttpContext context, ILogger<Program> logger) =
     }
 
     return Results.Redirect("/");
+});
+
+app.MapGet("/upvs/logout", (HttpContext context, ILogger<Program> logger) =>
+{
+    var props = new AuthenticationProperties
+    {
+        RedirectUri = "/"
+    };
+    //handle logout SAMLResponse if needed
+    if (context.Request.Query.TryGetValue("SAMLRequest", out var samlRequest))
+    {
+        logger.LogInformation("Logout in progress: {SAMLRequest}", samlRequest!);
+    }
+
+    return Results.SignOut(
+          new AuthenticationProperties { RedirectUri = "/" },
+          [CookieAuthenticationDefaults.AuthenticationScheme, Saml2Defaults.Scheme]
+    );
 });
 
 app.Run();
