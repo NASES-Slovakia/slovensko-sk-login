@@ -29,6 +29,7 @@ https://github.com/user-attachments/assets/aa5534dc-f741-4229-8374-8f6ff4c7d024
 ## Ukážkové implementácie
 - [Ruby on Rails](/ruby-on-rails)
 - [Java Tomcat s knižnicou Onelogin SAML Toolkit](/java-onelogin)
+- [ASP.NET Core](/asp-net-core)
 - [Node.js s knižnicou @node-saml/node-saml](/ts-node-saml-minimal)
 - [Čisté PHP](/php)
 - [PHP s frameworkom Laravel](/laravel)
